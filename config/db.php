@@ -4,8 +4,8 @@ $database_name ="store_mvc";
 $user="root";
 $psw="";
 try{
-    $connection = new PDO("mysql:host=$host;dbname=$database_name",$user,$psw);
-    $connection ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo= new PDO("mysql:host=$host;dbname=$database_name",$user,$psw);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 }
 catch(PDOException $e){
