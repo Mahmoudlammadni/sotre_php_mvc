@@ -43,5 +43,15 @@ class UserController{
     include __DIR__ . '/../view/auth/login.php';
 }
 
+public function logout() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    session_unset();    
+    session_destroy();   
+    header("Location: index.php?controller=user&action=showLogin");
+    exit;
+}
+
 }
 

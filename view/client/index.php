@@ -7,5 +7,8 @@
 </head>
 <body>
     client
+    <form action="index.php?controller=user&action=logout" method="post">
+        <button type="submit">log out</button>
+    </form>
 </body>
 </html>
