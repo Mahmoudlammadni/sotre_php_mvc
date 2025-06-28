@@ -2,8 +2,8 @@
 session_start(); 
 require_once 'config/db.php';
 
-$controller = $_GET['controller'] ?? 'user';
-$action = $_GET['action'] ?? 'showLogin';
+$controller = $_GET['controller'] ?? 'home';
+$action = $_GET['action'] ?? 'index';
 
 $controllerFile = "controller/" . ucfirst($controller) . "Controller.php";
 
