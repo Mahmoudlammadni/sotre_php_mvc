@@ -43,6 +43,25 @@ class UserController{
     include __DIR__ . '/../view/auth/login.php';
 }
 
+public function register() {
+    include __DIR__ . '/../view/auth/register.php';
+}
+public function store() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name=$_POST["name"];
+        $email=$_POST['email'];
+        $password=$_POST["password"];
+        $phone=$_POST["phone"];
+        $address=$_POST["address"];
+        $this->model->StoreClient($name,$email,$password,$phone,$address);
+       header("Location: index.php");
+        exit;
+
+    }
+}
+
+
+
 public function logout() {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
