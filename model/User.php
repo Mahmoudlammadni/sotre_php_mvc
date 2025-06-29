@@ -20,7 +20,26 @@ class User{
         if($user){
             return $user ;
         }
-        return false ;
-        
+        return false ; 
     }
+    public function StoreClient($name,$email,$password,$phone,$address){
+      try {
+        $this->pdo->beginTransaction();
+        $req = $this->pdo->prepare("INSERT INTO `users`(`username`, `email`, `password`, `role_id`) VALUE (:name,:email,:password,3)");
+        $req->execute(['name'=>$name,"email"=>$email,"password"=>$password]);   
+        $user_id=$this->pdo->lastInsertId();
+        $req2=$this->pdo->prepare("INSERT INTO `clients`(`name`, `email`, `phone`, `address`, `user_id`) VALUE (:name,:email,:phone,:address,:user_id)");
+        $req2->execute(['name'=>$name,"email"=>$email,"phone"=>$phone,"address"=>$address,"user_id"=>$user_id]);
+        $this->pdo->commit();
+        echo true;
+      } catch (PDOException $e) {
+        $this->pdo->rollBack();
+        echo "Failed".$e->getMessage();
+
+    }
+
+       
+    }
+
+
 }
