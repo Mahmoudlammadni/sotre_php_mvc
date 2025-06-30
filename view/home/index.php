@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/sotre_php_mvc/public/css/home.css">
 </head>
 <body>
+<a href="/sotre_php_mvc/view/products/store.php">add</a>
     <div class="app-container">
         <header class="app-header">
             <h1 class="app-title">Our Store</h1>
@@ -18,16 +19,17 @@
             
             <div class="product-grid">
                 <?php foreach ($products as $product): ?>
-                <article class="product-item">
-                    <div class="product-badge">New</div>
-                    <h3 class="product-name"><?= htmlspecialchars($product['name']) ?></h3>
-                    <p class="product-description"><?= htmlspecialchars($product['description']) ?></p>
-                    <div class="product-meta">
-                        <span class="product-price"><?= htmlspecialchars($product['price']) ?> MAD</span>
-                        <span class="product-stock"><?= htmlspecialchars($product['quantity']) ?> in stock</span>
-                    </div>
-                    <button class="product-button">Add to Cart</button>
-                </article>
+             <article class="product-item">
+    <img src="/sotre_php_mvc/<?= htmlspecialchars($product['image_path']) ?>" alt="Product Image" width="150">
+
+    <h3 class="product-name"><?= htmlspecialchars($product['name']) ?></h3>
+    <p class="product-description"><?= htmlspecialchars($product['description']) ?></p>
+    <div class="product-meta">
+        <span class="product-price"><?= htmlspecialchars($product['price']) ?> MAD</span>
+        <span class="product-stock"><?= htmlspecialchars($product['quantity']) ?> in stock</span>
+    </div>
+</article>
+
                 <?php endforeach; ?>
             </div>
         </main>

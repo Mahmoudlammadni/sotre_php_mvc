@@ -13,10 +13,15 @@ if (file_exists($controllerFile)) {
     $obj = new $class();
 
     if (method_exists($obj, $action)) {
-        $obj->$action();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $obj->$action($_POST, $_FILES);
+        } else {
+            $obj->$action();
+        }
     } else {
         echo "Action not found.";
     }
 } else {
     echo "Controller not found.";
 }
+

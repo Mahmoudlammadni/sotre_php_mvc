@@ -6,7 +6,6 @@ class HomeController {
         global $pdo;
         $productModel = new Product($pdo);
         $products = $productModel->getAll();
-
         include __DIR__ . '/../view/home/index.php';
     }
 }

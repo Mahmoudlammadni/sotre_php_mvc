@@ -38,7 +38,7 @@ CREATE TABLE products (
   FOREIGN KEY (category_id) REFERENCES categories(id),
   FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
 );
-CREATE TABLE products_image (
+CREATE TABLE products_images (
   id INT AUTO_INCREMENT PRIMARY KEY,
   product_id INT NOT NULL,
   image_path VARCHAR(255), 
