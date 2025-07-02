@@ -37,7 +37,7 @@
         <button type="submit">Log Out</button>
     </form>
 
-    <a href="/sotre_php_mvc/view/products/store.php">+ Add Product</a>
+    <a href="index.php?controller=product&action=create">+ Add Product</a>
 
     <table>
         <thead>
