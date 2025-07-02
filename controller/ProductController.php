@@ -11,6 +11,10 @@ class ProductController{
     global $pdo;
     $this->model= new Product($pdo);
  }
+ public function index() {
+        $products = $this->model->getAll();
+        include __DIR__ . '/../view/admin/index.php';
+    }
 
   public function store($data, $file) {
         try {
@@ -31,7 +35,7 @@ class ProductController{
             $this->model->insertProductWithImage($data, $relativeImagePath);
 
             echo "Product saved successfully.";
-            header("Location: /sotre_php_mvc/index.php?controller=home&action=index");
+            header("Location: /sotre_php_mvc/index.php?controller=product&action=index");
             exit;
 
 

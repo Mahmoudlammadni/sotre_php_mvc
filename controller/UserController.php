@@ -25,7 +25,7 @@ class UserController{
             $_SESSION['user'] = $user;
 
             if ($user['role_name'] === 'admin') {
-                include __DIR__ . '/../view/admin/index.php';
+                header("Location: index.php?controller=product&action=index");
             } elseif ($user['role_name'] === 'client') {
                 include __DIR__ . '/../view/client/index.php';
             } else {
