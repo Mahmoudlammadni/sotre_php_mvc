@@ -11,6 +11,12 @@ class Product {
         LEFT JOIN products_images pi ON p.id = pi.product_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getById($id) {
+    $stmt = $this->pdo->prepare("SELECT * FROM products WHERE id = :id");
+    $stmt->execute([':id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
       public function insertProductWithImage($data, $imagePath) {
         try {
             $this->pdo->beginTransaction();
