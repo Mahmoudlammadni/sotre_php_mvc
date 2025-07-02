@@ -16,6 +16,17 @@ class ProductController{
         include __DIR__ . '/../view/admin/index.php';
     }
 
+   public function destroy() {
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $this->model->destroy($id);
+        header("Location: index.php?controller=product&action=index");
+        exit;
+    } else {
+        echo "Product ID not provided.";
+    }
+}
+
   public function store($data, $file) {
         try {
             if (isset($file['image']) && $file['image']['error'] == 0) {
