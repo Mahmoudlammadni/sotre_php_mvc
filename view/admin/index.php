@@ -59,7 +59,7 @@
                 <td><?= htmlspecialchars($product['price']) ?></td>
                 <td><?= htmlspecialchars($product['quantity']) ?></td>
                 <td class="actions">
-                    <a href="edit.php?id=<?= $product['id'] ?>"><button>Edit</button></a>
+                    <a href="/sotre_php_mvc/index.php?controller=product&action=edite&id=<?= $product['id'] ?>"><button>Edit</button></a>
                     <a href="/sotre_php_mvc/index.php?controller=product&action=destroy&id=<?= $product['id'] ?>" onclick="return confirm('Are you sure?');">
                         <button>Delete</button>
                     </a>
