@@ -49,6 +49,41 @@ class Product {
             throw new Exception("DB Error: " . $e->getMessage());
         }
     }
+    
+    public function updateProductWithImage(int $id, array $data, ?string $imagePath = null): bool {
+    try {
+        $this->pdo->beginTransaction();
+
+        $stmt = $this->pdo->prepare("UPDATE products SET name = :name,
+                description = :description,price = :price,quantity = :quantity,category_id = :category_id,
+                supplier_id = :supplier_id WHERE id = :id");
+
+        $stmt->execute([
+            ':name'        => htmlspecialchars($data['name']),
+            ':description' => htmlspecialchars($data['description']),
+            ':price'       => $data['price'],
+            ':quantity'    => $data['quantity'],
+            ':category_id' => $data['category_id'],
+            ':supplier_id' => $data['supplier_id'],
+            ':id'          => $id
+        ]);
+
+        if ($imagePath !== null) {
+            $stmt2 = $this->pdo->prepare("UPDATE products_images SET image_path = :image_path WHERE product_id = :product_id");
+
+            $stmt2->execute([':image_path'  => $imagePath,':product_id'  => $id]);
+        }
+
+        $this->pdo->commit();
+        return true;
+
+    } catch (PDOException $e) {
+        $this->pdo->rollBack();
+        throw new Exception("DB Error: " . $e->getMessage());
+    }
+}
+
+
     public function destroy($id){
        
         try{
