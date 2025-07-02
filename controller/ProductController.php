@@ -1,15 +1,21 @@
 <?php
 include  __DIR__ . "/../model/Product.php";
+include  __DIR__ . "/../model/Category.php";
+include  __DIR__ . "/../model/Supplier.php";
  if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role_name'], ['admin', 'manager'])) {
      echo "Unauthorized access.";
      exit;
  }
 class ProductController{
  private  $model;
+ private  $cate;
+ private  $supp;
  public function __construct()
  {
     global $pdo;
     $this->model= new Product($pdo);
+    $this->cate=new Category($pdo);
+    $this->supp=new Supplier($pdo);
  }
  public function index() {
         $products = $this->model->getAll();
@@ -26,6 +32,15 @@ class ProductController{
         echo "Product ID not provided.";
     }
 }
+public function create() {
+   
+    $categories = $this->cate->getAll();
+    $suppliers = $this->supp->getAll();
+
+    include __DIR__ . '/../view/products/store.php';
+}
+
+
 
   public function store($data, $file) {
         try {
