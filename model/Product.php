@@ -49,4 +49,19 @@ class Product {
             throw new Exception("DB Error: " . $e->getMessage());
         }
     }
+    public function destroy($id){
+       
+        try{
+        $this->pdo->beginTransaction();
+        $req2= $this->pdo->prepare("DELETE FROM products_images where product_id=:id ");
+        $req2->execute([":id"=>$id]);
+        $req = $this->pdo->prepare("DELETE FROM products where id = :id");
+        $req->execute([":id"=>$id]);
+        $this->pdo->commit();
+        }
+        catch(PDOException $e){
+        $this->pdo->rollBack();
+        echo "Failed :".$e->getMessage();
+        }
+    }
 }
