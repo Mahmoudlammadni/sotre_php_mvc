@@ -37,7 +37,7 @@ public function create() {
     $categories = $this->cate->getAll();
     $suppliers = $this->supp->getAll();
 
-    include __DIR__ . '/../view/products/store.php';
+    include __DIR__ . '/../view/admin/products/store.php';
 }
 
 
@@ -81,7 +81,7 @@ public function create() {
     $categories = $this->cate->getAll();
     $suppliers = $this->supp->getAll();
 
-    include __DIR__ . '/../view/products/update.php';
+    include __DIR__ . '/../view/admin/products/update.php';
 }
 
 public function update($data, $file) {

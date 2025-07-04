@@ -38,6 +38,7 @@
     </form>
 
     <a href="index.php?controller=product&action=create">+ Add Product</a>
+    <a href="index.php?controller=user&action=index">see user</a>
 
     <table>
         <thead>

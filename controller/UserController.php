@@ -10,7 +10,7 @@ class UserController{
 
     public function index(){
         $users=$this->model->all_users();
-        include __DIR__ . '/../view/users/index.php';
+        include __DIR__ . '/../view/admin/users/index.php';
     }
 
 
