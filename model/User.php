@@ -35,10 +35,15 @@ class User{
       } catch (PDOException $e) {
         $this->pdo->rollBack();
         echo "Failed".$e->getMessage();
-
     }
-
-       
+    }
+    public function StoreUser($name,$email,$password,$role){
+        try{
+        $req=$this->pdo->prepare("INSERT INTO `users`(`username`, `email`, `password`, `role_id`) VALUE (:name,:email,:password,:role_id)");
+        $req->execute(["name"=>$name,"email"=>$email,"password"=>$password,"role_id"=>$role]);
+        }catch(PDOException $e){
+         echo 'Failed'.$e->getMessage();
+        }
     }
 
 
