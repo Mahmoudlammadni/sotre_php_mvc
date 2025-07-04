@@ -49,8 +49,8 @@ CREATE TABLE clients (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100),
   email VARCHAR(100),
-  phone VARCHAR(20),
-  address TEXT,
+  phone VARCHAR(20) nullable,
+  address TEXT nullable,
   user_id INT UNIQUE,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP

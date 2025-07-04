@@ -67,6 +67,25 @@ public function create(){
     include __DIR__ ."/../view/admin/users/store.php";
 }
 
+public function store(){
+    if($_SERVER["REQUEST_METHOD"]==='POST'){
+        $username=$_POST["username"];
+        $email=$_POST["email"];
+        $password=$_POST["password"];
+        $role_id=$_POST["role_id"];
+        if($role_id==1){
+            $phone = $_POST["phone"];
+            $address = $_POST["address"];
+            $this->model->StoreClient($username,$email,$password,$phone,$address);
+            
+        }
+        else {
+            $this->model->StoreUser($username,$email,$password,$role_id);
+        }
+                header("Location: index.php?controller=user&action=index");
+
+    }
+}
 
 public function logout() {
     if (session_status() === PHP_SESSION_NONE) {
