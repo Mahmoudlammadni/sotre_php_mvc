@@ -4,10 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        img {
+            width: 60px;
+        }
+
+        .actions button {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
     <h2>All Users</h2>
-<table border="1" cellpadding="8">
+<table >
     <tr>
         <th>ID</th>
         <th>Username</th>
