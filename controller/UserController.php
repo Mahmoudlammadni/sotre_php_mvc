@@ -1,11 +1,14 @@
 <?php
 include __DIR__ . '/../model/User.php';
+include __DIR__ . "/../model/Role.php";
 class UserController{
     private  $model;
+    private $role ;
     public function __construct()
     {
         global $pdo;
         $this->model= new user($pdo);
+        $this->role= new Role($pdo);
     }
 
     public function index(){
@@ -46,7 +49,7 @@ class UserController{
 public function register() {
     include __DIR__ . '/../view/auth/register.php';
 }
-public function store() {
+public function storeclient() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name=$_POST["name"];
         $email=$_POST['email'];
@@ -59,7 +62,10 @@ public function store() {
 
     }
 }
-
+public function create(){
+    $roles =$this->role->getRoles();
+    include __DIR__ ."/../view/admin/users/store.php";
+}
 
 
 public function logout() {

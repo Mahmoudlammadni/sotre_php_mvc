@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="index.php?controller=user&action=store" method="post">
+    <form action="index.php?controller=user&action=storeclient" method="post">
         <input type="text" placeholder="name" name="name" required> <br>
         <input type="text" placeholder="email" name="email" required> <br>
         <input type="password" placeholder="password" name="password" required> <br>
