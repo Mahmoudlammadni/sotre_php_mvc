@@ -33,6 +33,7 @@
 <body>
     <h2>All Users</h2>
     <a href="index.php?controller=product&action=index">see products</a>
+    <a href="index.php?controller=client&action=index">see clients</a>
     <a href="index.php?controller=user&action=create">add user</a>
 <table >
     <tr>

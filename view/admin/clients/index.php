@@ -39,22 +39,24 @@
         <th>ID</th>
         <th>Username</th>
         <th>Email</th>
-        <th>Role</th>
+        <th>phone</th>
+        <th>address</th>
         <th>action</th>
         <th>Created At</th>
     </tr>
-    <?php foreach ($users as $user): ?>
+    <?php foreach ($clients as $c): ?>
         <tr>
-            <td><?=$user['id'] ?></td>
-            <td><?=$user['username'] ?></td>
-            <td><?=$user['email'] ?></td>
-            <td><?=$user['role_name'] ?></td>
+            <td><?=$c['client_id'] ?></td>
+            <td><?=$c['username'] ?></td>
+            <td><?=$c['email'] ?></td>
+            <td><?=$c['phone'] ?></td>
+            <td><?=$c['address'] ?></td>
             <td>
-                <a href="/sotre_php_mvc/index.php?controller=user&action=destroy&id=<?= $user['id']?>"onclick="return confirm('Are you sure?');"><button>delete</button></a>
-                <a href="/sotre_php_mvc/index.php?controller=user&action=editeUser&id=<?= $user['id']?>"><button>update</button></a>
+                <a><button>delete</button></a>
+                <a ><button>update</button></a>
             </td>
 
-            <td><?=$user['created_at'] ?></td>
+            <td><?=$c['created_at'] ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
