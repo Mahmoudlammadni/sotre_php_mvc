@@ -6,9 +6,14 @@ class User{
         $this->pdo=$pdo;
     }
     public function all_users(){
-        $all = $this->pdo->prepare("select users.* , roles.name as role_name from users inner join roles on 
-        users.role_id=roles.id");
-        $all->execute(); 
+        $all = $this->pdo->prepare("SELECT users.*, roles.name as role_name 
+                                FROM users INNER JOIN roles ON users.role_id = roles.id 
+                                WHERE roles.name = :role1 OR roles.name = :role2");
+                               
+        $all->execute([
+           "role1"=>"admin",
+           "role2"=>"manager"
+        ]); 
         return $all->fetchAll(PDO::FETCH_ASSOC);   
     }
     public function getUserById($id){
