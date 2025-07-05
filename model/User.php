@@ -45,6 +45,39 @@ class User{
          echo 'Failed'.$e->getMessage();
         }
     }
+public function destroy($id){
+    $req = $this->pdo->prepare("SELECT role_id from users where id= :id ");
+    $req->execute(["id"=>$id]);
+    $user= $req->fetch(PDO::FETCH_ASSOC);
+    if($user){
+        $role_id=$user["role_id"];
+        $req2=$this->pdo->prepare("SELECT id from roles where name =:name");
+        $req2->execute(["name"=>"client"]);
+        $roleId = $req2->fetch(PDO::FETCH_ASSOC);
+        if($role_id==$roleId["id"]){
+            try{
+            $this->pdo->beginTransaction();
+            $req3 = $this->pdo->prepare("DELETE FROM clients where user_id =:id");
+            $req3->execute(['id'=>$id]);
+            $req4=$this->pdo->prepare("DELETE FROM users where id =:id ");
+            $req4->execute(['id'=>$id]);
+            $this->pdo->commit();
 
+            }catch(PDOException $e){
+                $this->pdo->rollBack();
+                echo "Error". $e->getMessage();
+            }
+        }
+        else{
+            try{
+                $req5=$this->pdo->prepare("DELETE from users where id =:id");
+                $req5->execute(["id"=>$id]);
+            }
+            catch(PDOException $e){
+                echo 'Error'.$e->getMessage();
+            }
+        }
+    }
+}
 
 }
