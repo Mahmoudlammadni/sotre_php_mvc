@@ -83,8 +83,21 @@ class User{
         }
     }
 
+    public function UpdateUser($id,$name,$email,$password,$role_id){
+        try{
+            $req=$this->pdo->prepare("UPDATE `users` SET username =:name,email=:email,password=:password,role_id=:role_id where id =:id");
+            $req->execute([
+                "name"=>$name,
+                "email"=>$email,
+                "password"=>$password,
+                "role_id"=>$role_id,
+                "id"=>$id
+            ]);
+        }catch(PDOException $e){
+            echo "Failed".$e->getMessage();
+        }
 
-
+    }
 
 
 public function destroy($id){
