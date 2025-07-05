@@ -49,7 +49,10 @@
             <td><?=$user['username'] ?></td>
             <td><?=$user['email'] ?></td>
             <td><?=$user['role_name'] ?></td>
-            <td><a href="/sotre_php_mvc/index.php?controller=user&action=destroy&id=<?= $user['id']?>"onclick="return confirm('Are you sure?');"><button>delete</button></a></td>
+            <td>
+                <a href="/sotre_php_mvc/index.php?controller=user&action=destroy&id=<?= $user['id']?>"onclick="return confirm('Are you sure?');"><button>delete</button></a>
+                <a href="/sotre_php_mvc/index.php?controller=user&action=editeUser&id=<?= $user['id']?>"><button>update</button></a>
+            </td>
 
             <td><?=$user['created_at'] ?></td>
         </tr>

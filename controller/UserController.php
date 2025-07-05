@@ -86,6 +86,16 @@ public function store(){
 
     }
 }
+public function editeUser(){
+     if (!isset($_GET['id'])) {
+        echo "User ID is missing.";
+        return;
+    }
+    $id = $_GET['id'];
+   $user= $this->model->getUserById($id);
+    include __DIR__ . "/../view/admin/users/updateUser.php";
+
+}
 public function destroy(){
   if(isset($_GET["id"])){
     $id=$_GET["id"];
