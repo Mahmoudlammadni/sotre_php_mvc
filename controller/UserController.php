@@ -49,19 +49,19 @@ class UserController{
 public function register() {
     include __DIR__ . '/../view/auth/register.php';
 }
-public function storeclient() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $name=$_POST["name"];
-        $email=$_POST['email'];
-        $password=$_POST["password"];
-        $phone=$_POST["phone"];
-        $address=$_POST["address"];
-        $this->model->StoreClient($name,$email,$password,$phone,$address);
-       header("Location: index.php");
-        exit;
+// public function storeclient() {
+//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//         $name=$_POST["name"];
+//         $email=$_POST['email'];
+//         $password=$_POST["password"];
+//         $phone=$_POST["phone"];
+//         $address=$_POST["address"];
+//         $this->model->StoreClient($name,$email,$password,$phone,$address);
+//        header("Location: index.php");
+//         exit;
 
-    }
-}
+//     }
+// }
 public function create(){
     $roles =$this->role->getRoles();
     include __DIR__ ."/../view/admin/users/store.php";
@@ -73,27 +73,32 @@ public function store(){
         $email=$_POST["email"];
         $password=$_POST["password"];
         $role_id=$_POST["role_id"];
-        if($role_id==1){
-            $phone = $_POST["phone"];
-            $address = $_POST["address"];
-            $this->model->StoreClient($username,$email,$password,$phone,$address);
-            
-        }
-        else {
-            $this->model->StoreUser($username,$email,$password,$role_id);
-        }
+        $this->model->StoreUser($username,$email,$password,$role_id);
                 header("Location: index.php?controller=user&action=index");
-
     }
 }
-public function editeUser(){
+public function edite(){
      if (!isset($_GET['id'])) {
         echo "User ID is missing.";
         return;
     }
     $id = $_GET['id'];
-   $user= $this->model->getUserById($id);
+    $roles =$this->role->getRoles();
+    $user= $this->model->getUserById($id);
     include __DIR__ . "/../view/admin/users/updateUser.php";
+}
+public function update(){
+  $id = $_GET['id'] ;
+    if (!$id) {
+        echo "No user ID provided.";
+        return;
+    }
+   $name=$_POST["username"];
+   $email=$_POST["email"];
+   $password=$_POST["password"];
+   $role_id=$_POST["role_id"];
+   $this->model->UpdateUser($id,$name,$email,$password,$role_id);
+    header("Location: index.php?controller=user&action=index");
 
 }
 public function destroy(){

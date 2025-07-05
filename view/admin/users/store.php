@@ -13,11 +13,14 @@
         <input class="input-field"  type="text" placeholder="username" name="username" required><br>
         <input class="input-field"  type="text" placeholder="email" name="email" required><br>
         <input class="input-field"  type="text" placeholder="password" name="password" required><br>
-        <select lass="input-field" name="role_id" >
-        <?php foreach ($roles as $r) : ?>
+       <select class="input-field" name="role_id">
+    <?php foreach ($roles as $r) : ?>
+        <?php if ($r['name'] !== 'client') : ?>
             <option value="<?= $r["id"] ?>"><?= htmlspecialchars($r['name']) ?></option>
-         <?php endforeach ; ?>
-        </select>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</select>
+
         <button class="action-button" type="submit">add user</button>
     </form>
 </body>
