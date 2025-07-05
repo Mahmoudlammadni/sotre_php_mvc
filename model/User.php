@@ -11,6 +11,21 @@ class User{
         $all->execute(); 
         return $all->fetchAll(PDO::FETCH_ASSOC);   
     }
+    public function getUserById($id){
+        $req = $this->pdo->prepare("SELECT * from  users where id=:id ");
+        $req->execute([
+            'id'=>$id
+        ]);
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getClientByUserId($id){
+        $req = $this->pdo->prepare("SELECT clients.* , users.* FROM clients inner join users on users.id =clients.user_id where clients.user_id=:id");
+        $req->execute([
+            "id"=>$id
+        ]);
+        return $req->fetch(PDO::FETCH_ASSOC);
+       
+    }
 
     public function LogIn($email,$password){
         $req = $this->pdo->prepare("select users.* , roles.name as role_name from users inner join roles on users.role_id = roles.id
