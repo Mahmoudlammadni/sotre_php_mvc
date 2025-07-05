@@ -86,7 +86,16 @@ public function store(){
 
     }
 }
-
+public function destroy(){
+  if(isset($_GET["id"])){
+    $id=$_GET["id"];
+    $this->model->destroy($id);
+    header("Location:index.php?controller=user&action=index");
+    exit;
+  }else{
+    echo "User Id not found";
+  }
+}
 public function logout() {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();

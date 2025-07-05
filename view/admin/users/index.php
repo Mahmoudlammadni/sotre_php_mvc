@@ -40,6 +40,7 @@
         <th>Username</th>
         <th>Email</th>
         <th>Role</th>
+        <th>action</th>
         <th>Created At</th>
     </tr>
     <?php foreach ($users as $user): ?>
@@ -48,6 +49,8 @@
             <td><?=$user['username'] ?></td>
             <td><?=$user['email'] ?></td>
             <td><?=$user['role_name'] ?></td>
+            <td><a href="/sotre_php_mvc/index.php?controller=user&action=destroy&id=<?= $user['id']?>"onclick="return confirm('Are you sure?');"><button>delete</button></a></td>
+
             <td><?=$user['created_at'] ?></td>
         </tr>
     <?php endforeach; ?>
