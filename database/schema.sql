@@ -1,5 +1,5 @@
 CREATE DATABASE store_mvc;
-use store_mvc ;
+USE store_mvc;
 CREATE TABLE roles (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(50) UNIQUE NOT NULL
@@ -49,20 +49,20 @@ CREATE TABLE clients (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100),
   email VARCHAR(100),
-  phone VARCHAR(20) nullable,
-  address TEXT nullable,
+  phone VARCHAR(20) NULL,
+  address TEXT NULL,
   user_id INT UNIQUE,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE orders (
   id INT AUTO_INCREMENT PRIMARY KEY,
   client_id INT,
-  user_id INT, -- who created the order
+  user_id INT, 
   order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
   total_amount DECIMAL(10,2),
   status ENUM('pending', 'paid', 'cancelled') DEFAULT 'pending',
-  FOREIGN KEY (client_id) REFERENCES clients(id),
+  FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 CREATE TABLE order_items (
@@ -72,9 +72,6 @@ CREATE TABLE order_items (
   quantity INT NOT NULL,
   unit_price DECIMAL(10,2) NOT NULL,
   subtotal DECIMAL(10,2) NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders(id),
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES products(id)
 );
-
-
-
