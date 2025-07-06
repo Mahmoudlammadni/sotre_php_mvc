@@ -16,7 +16,18 @@ class ClientController{
         include __DIR__ . "/../view/admin/clients/store.php";
     }
 
-
+ public function store() {
+     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         $name=$_POST["name"];
+         $email=$_POST['email'];
+         $password=$_POST["password"];
+         $phone=$_POST["phone"];
+         $address=$_POST["address"];
+         $this->model->StoreClient($name,$email,$password,$phone,$address);
+        header("Location: index.php?controller=client&action=index");
+         exit;
+     }
+ }
 
     public function edit(){
         if (!isset($_GET['id'])) {
