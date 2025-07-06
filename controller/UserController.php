@@ -85,7 +85,7 @@ public function edite(){
     $id = $_GET['id'];
     $roles =$this->role->getRoles();
     $user= $this->model->getUserById($id);
-    include __DIR__ . "/../view/admin/users/updateUser.php";
+    include __DIR__ . "/../view/admin/users/update.php";
 }
 public function update(){
   $id = $_GET['id'] ;
