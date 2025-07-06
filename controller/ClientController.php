@@ -12,4 +12,13 @@ class ClientController{
         $clients=$this->model->all_clients();
         include __DIR__ . "/../view/admin/clients/index.php";
     }
-}
+    public function destroy(){
+        if(isset($_GET["id"])){
+            $id=$_GET["id"];
+            $this->model->destroy($id);
+            header("Location:index.php?controller=client&action=index");
+             exit;
+        }else{
+            echo "Clinet Id not found";
+        }}
+    }

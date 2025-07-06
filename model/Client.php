@@ -9,7 +9,7 @@ class Client {
     public function all_clients() {
         $stmt = $this->pdo->prepare("
             SELECT clients.id AS client_id, clients.phone, clients.address,
-                   users.id AS user_id, users.username, users.email, users.created_at
+                   users.id AS user_id, users.username, users.email,users.password, users.created_at
             FROM clients
             INNER JOIN users ON clients.user_id = users.id
         ");

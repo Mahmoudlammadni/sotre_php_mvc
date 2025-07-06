@@ -33,12 +33,13 @@
 <body>
     <h2>All Users</h2>
     <a href="index.php?controller=product&action=index">see products</a>
-    <a href="index.php?controller=user&action=create">add user</a>
+    <!-- <a href="index.php?controller=user&action=create">add user</a> -->
 <table >
     <tr>
         <th>ID</th>
         <th>Username</th>
         <th>Email</th>
+        <th>password</th>
         <th>phone</th>
         <th>address</th>
         <th>action</th>
@@ -49,10 +50,13 @@
             <td><?=$c['client_id'] ?></td>
             <td><?=$c['username'] ?></td>
             <td><?=$c['email'] ?></td>
+            <td><?=$c['password'] ?></td>
             <td><?=$c['phone'] ?></td>
             <td><?=$c['address'] ?></td>
             <td>
-                <a><button>delete</button></a>
+                <a href="/sotre_php_mvc/index.php?controller=client&action=destroy&id=<?= $c['user_id']?>
+                "onclick="return confirm('Are you sure?');"><button>delete</button></a>
+                
                 <a ><button>update</button></a>
             </td>
 
