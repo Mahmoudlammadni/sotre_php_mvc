@@ -19,7 +19,7 @@ class Client {
 
     public function getClientByUserId($id) {
         $stmt = $this->pdo->prepare("
-            SELECT clients.*, users.username, users.email
+            SELECT clients.*, users.username, users.email ,users.password
             FROM clients
             INNER JOIN users ON clients.user_id = users.id
             WHERE clients.user_id = :id

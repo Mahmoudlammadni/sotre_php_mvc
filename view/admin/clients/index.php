@@ -57,7 +57,7 @@
                 <a href="/sotre_php_mvc/index.php?controller=client&action=destroy&id=<?= $c['user_id']?>
                 "onclick="return confirm('Are you sure?');"><button>delete</button></a>
                 
-                <a ><button>update</button></a>
+                <a href="/sotre_php_mvc/index.php?controller=client&action=edit&id=<?= $c['user_id']?>" ><button>update</button></a>
             </td>
 
             <td><?=$c['created_at'] ?></td>

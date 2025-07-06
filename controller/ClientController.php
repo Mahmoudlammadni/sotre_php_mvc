@@ -12,6 +12,17 @@ class ClientController{
         $clients=$this->model->all_clients();
         include __DIR__ . "/../view/admin/clients/index.php";
     }
+    public function edit(){
+        if (!isset($_GET['id'])) {
+        echo "User ID is missing.";
+        return;
+    }
+         $id = $_GET['id'];
+        $client = $this->model->getClientByUserId($id);
+        include __DIR__ ."/../view/admin/clients/edite.php";
+    }
+
+
     public function destroy(){
         if(isset($_GET["id"])){
             $id=$_GET["id"];
