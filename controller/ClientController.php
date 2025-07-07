@@ -14,7 +14,9 @@ class ClientController{
         include __DIR__ . "/../view/admin/layout.php";
     }
     public function create(){
-        include __DIR__ . "/../view/admin/clients/store.php";
+        $view= __DIR__ . "/../view/admin/clients/store.php";
+        include __DIR__ . "/../view/admin/layout.php";
+
     }
 
  public function store() {
@@ -37,7 +39,9 @@ class ClientController{
     }
          $id = $_GET['id'];
         $client = $this->model->getClientByUserId($id);
-        include __DIR__ ."/../view/admin/clients/edite.php";
+        $view= __DIR__ ."/../view/admin/clients/edite.php";
+        include __DIR__ . "/../view/admin/layout.php";
+
     }
 
     public function update(){

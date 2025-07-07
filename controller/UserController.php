@@ -52,8 +52,12 @@ public function register() {
 }
 public function create(){
     $roles =$this->role->getRoles();
-    include __DIR__ ."/../view/admin/users/store.php";
+    $view=__DIR__ ."/../view/admin/users/store.php";
+    include __DIR__ . "/../view/admin/layout.php";
+    
+
 }
+
 
 public function store(){
     if($_SERVER["REQUEST_METHOD"]==='POST'){
@@ -73,7 +77,9 @@ public function edite(){
     $id = $_GET['id'];
     $roles =$this->role->getRoles();
     $user= $this->model->getUserById($id);
-    include __DIR__ . "/../view/admin/users/update.php";
+    $view= __DIR__ . "/../view/admin/users/update.php";
+    include __DIR__ . "/../view/admin/layout.php";
+
 }
 public function update(){
   $id = $_GET['id'] ;

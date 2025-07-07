@@ -61,7 +61,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="index.php?controller=product&action=create" class="nav-link">
                                 <span class="nav-text">Add New</span>
                             </a>
                         </li>
@@ -92,7 +92,7 @@
                     </a>
                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="index.php?controller=client&action=create" class="nav-link">
                                         <span class="nav-text">Add New</span>
                                     </a>
                                 </li>
@@ -118,7 +118,7 @@
             </a>
         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="index.php?controller=user&action=create" class="nav-link">
                                 <span class="nav-text">Add New</span>
                             </a>
                         </li>
