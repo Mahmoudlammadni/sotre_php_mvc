@@ -33,9 +33,6 @@
 <body>
     <h1>Admin Panel - Product Management</h1>
 
-    <form action="index.php?controller=user&action=logout" method="post">
-        <button type="submit">Log Out</button>
-    </form>
 
     <a href="index.php?controller=product&action=create">+ Add Product</a>
     <a href="index.php?controller=user&action=index">see user</a>
