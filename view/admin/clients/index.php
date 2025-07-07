@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
     <style>
+        .body{
+            padding: 60px ;
+        }
           table {
             width: 100%;
             border-collapse: collapse;
@@ -30,10 +28,11 @@
         }
     </style>
 </head>
-<body>
+<body class="body">
     <h2>All Users</h2>
     <a href="index.php?controller=product&action=index">see products</a>
     <a href="index.php?controller=client&action=create">add client</a> 
+    
 <table >
     <tr>
         <th>ID</th>
@@ -65,5 +64,3 @@
     <?php endforeach; ?>
 </table>
 
-</body>
-</html>

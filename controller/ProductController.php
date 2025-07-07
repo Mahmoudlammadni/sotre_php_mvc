@@ -19,7 +19,8 @@ class ProductController{
  }
  public function index() {
         $products = $this->model->getAll();
-        include __DIR__ . '/../view/admin/products/index.php';
+        $view = __DIR__ . '/../view/admin/products/index.php';
+        include __DIR__ . "/../view/admin/layout.php";
     }
 
    public function destroy() {

@@ -10,7 +10,8 @@ class ClientController{
     }
     public function index(){
         $clients=$this->model->all_clients();
-        include __DIR__ . "/../view/admin/clients/index.php";
+        $view = __DIR__ . "/../view/admin/clients/index.php";
+        include __DIR__ . "/../view/admin/layout.php";
     }
     public function create(){
         include __DIR__ . "/../view/admin/clients/store.php";
