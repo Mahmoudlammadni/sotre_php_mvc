@@ -29,10 +29,7 @@
     </style>
 </head>
 <body class="body">
-    <h2>All Users</h2>
-    <a href="index.php?controller=product&action=index">see products</a>
-    <a href="index.php?controller=client&action=create">add client</a> 
-    
+    <h2>All Users</h2>   
 <table >
     <tr>
         <th>ID</th>

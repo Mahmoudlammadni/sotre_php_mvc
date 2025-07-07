@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
+      <style>
+        .body{
+            padding: 60px ;
+        }
           table {
             width: 100%;
             border-collapse: collapse;
@@ -31,33 +34,23 @@
     </style>
 </head>
 <body>
-    <h2>All Users</h2>
+     <h2>All Users</h2>   
 <table >
     <tr>
         <th>ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Password</th>
+        <th>name</th>
+        <th>description</th>
         <th>action</th>
-        <th>Created At</th>
+       
     </tr>
-    <?php foreach ($users as $user): ?>
+    <?php foreach ($category as $c): ?>
         <tr>
-            <td><?=$user['id'] ?></td>
-            <td><?=$user['username'] ?></td>
-            <td><?=$user['email'] ?></td>
-            <td><?=$user['role_name'] ?></td>
-            <td><?=$user['password'] ?></td>
+            <td><?=$c['id'] ?></td>
+            <td><?=$c['name'] ?></td>
+            <td><?=$c['description'] ?></td>
             <td>
-                <a href="/sotre_php_mvc/index.php?controller=user&action=destroy&id=<?= $user['id']?>"onclick="return confirm('Are you sure?');"><button>delete</button></a>
-                <a href="/sotre_php_mvc/index.php?controller=user&action=edite&id=<?= $user['id']?>"><button>update</button></a>
             </td>
-
-            <td><?=$user['created_at'] ?></td>
         </tr>
     <?php endforeach; ?>
-</table>
-
 </body>
 </html>

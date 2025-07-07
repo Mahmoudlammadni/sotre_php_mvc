@@ -77,6 +77,36 @@
                         </li>
                     </ul>
                 </li>
+
+
+                <li class="nav-item has-submenu">
+    <a href="javascript:void(0)" class="nav-link">
+        <i class='bx bx-category nav-icon'></i>  
+        <span class="nav-text">Categories</span>
+        <i class='bx bx-chevron-down submenu-toggle'></i>
+        <span class="tooltip">Categories</span>
+    </a>
+    <ul class="submenu">
+        <li class="nav-item">
+            <a href="index.php?controller=category&action=index" class="nav-link">
+                <span class="nav-text">All Categories</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="index.php?controller=category&action=create" class="nav-link">
+                <span class="nav-text">Add New</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <span class="nav-text">Segments</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+
+
                 
                <li class="nav-item has-submenu">
                     <a href="javascript:void(0)" class="nav-link">

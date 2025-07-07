@@ -32,13 +32,6 @@
 </head>
 <body>
     <h1>Admin Panel - Product Management</h1>
-
-
-    <a href="index.php?controller=product&action=create">+ Add Product</a>
-    <a href="index.php?controller=user&action=index">see user</a>
-        <a href="index.php?controller=client&action=index">see clients</a>
-
-
     <table>
         <thead>
             <tr>
