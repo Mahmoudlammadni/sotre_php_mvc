@@ -12,4 +12,9 @@ private $model ;
         $view= __DIR__ . "/../view/admin/category/index.php";
         include __DIR__ . "/../view/admin/layout.php";
     }
+    public function create(){
+       $view= __DIR__ . "/../view/admin/category/store.php";
+    include __DIR__ . "/../view/admin/layout.php";
+
+    }
 }
