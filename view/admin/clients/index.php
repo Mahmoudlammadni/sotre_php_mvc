@@ -1,63 +1,47 @@
-
-    <style>
-        .body{
-            padding: 60px ;
-        }
-          table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 12px;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-
-        img {
-            width: 60px;
-        }
-
-        .actions button {
-            margin-right: 5px;
-        }
-    </style>
-</head>
-<body class="body">
-    <h2>All Users</h2>   
-<table >
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>password</th>
-        <th>phone</th>
-        <th>address</th>
-        <th>action</th>
-        <th>Created At</th>
-    </tr>
-    <?php foreach ($clients as $c): ?>
-        <tr>
-            <td><?=$c['client_id'] ?></td>
-            <td><?=$c['username'] ?></td>
-            <td><?=$c['email'] ?></td>
-            <td><?=$c['password'] ?></td>
-            <td><?=$c['phone'] ?></td>
-            <td><?=$c['address'] ?></td>
-            <td>
-                <a href="/sotre_php_mvc/index.php?controller=client&action=destroy&id=<?= $c['user_id']?>
-                "onclick="return confirm('Are you sure?');"><button>delete</button></a>
-                
-                <a href="/sotre_php_mvc/index.php?controller=client&action=edit&id=<?= $c['user_id']?>" ><button>update</button></a>
-            </td>
-
-            <td><?=$c['created_at'] ?></td>
-        </tr>
-    <?php endforeach; ?>
-</table>
-
+ <link rel="stylesheet" href="/sotre_php_mvc/public/css/table.css" />
+<div class="user-management-wrapper">
+    <h2 class="user-management-heading">User Management</h2>
+    
+    <div class="user-table-container">
+        <table class="user-data-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%">ID</th>
+                    <th style="width: 12%">Username</th>
+                    <th style="width: 18%">Email</th>
+                    <th style="width: 10%">Password</th>
+                    <th style="width: 10%">Phone</th>
+                    <th style="width: 20%">Address</th>
+                    <th style="width: 15%">Actions</th>
+                    <th style="width: 10%">Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($clients as $c): ?>
+                <tr>
+                    <td><?=$c['client_id'] ?></td>
+                    <td><?=$c['username'] ?></td>
+                    <td><?=$c['email'] ?></td>
+                    <td class="user-password-field">••••••••</td>
+                    <td><?=$c['phone'] ?></td>
+                    <td><?=$c['address'] ?></td>
+                    <td class="user-actions-cell">
+                        <a href="/sotre_php_mvc/index.php?controller=client&action=edit&id=<?= $c['user_id']?>">
+                            <button class="user-action-btn user-edit-btn">
+                                Edit
+                            </button>
+                        </a>
+                        <a href="/sotre_php_mvc/index.php?controller=client&action=destroy&id=<?= $c['user_id']?>" 
+                           onclick="return confirm('Are you sure you want to delete this user?');">
+                            <button class="user-action-btn user-delete-btn">
+                                Delete
+                            </button>
+                        </a>
+                    </td>
+                    <td><?=date('M d, Y', strtotime($c['created_at'])) ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
