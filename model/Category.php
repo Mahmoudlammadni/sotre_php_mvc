@@ -21,6 +21,18 @@ class Category {
 
         }
     }
+    public function UpdateCategory($id,$name,$des){
+        try{
+            $req=$this->pdo->prepare("UPDATE `categories` SET name=:name,description=:description where id =:id");
+            $req->execute([
+                "name"=>$name,
+                "description"=>$des,
+                "id"=>$id
+            ]);
+        }catch(PDOException $e){
+            echo "Filed". $e->getMessage();
+        }
+    }
     public function destroy($id){
         try{
             $stmt=$this->pdo->prepare("DELETE FROM `categories` where id=:id");
