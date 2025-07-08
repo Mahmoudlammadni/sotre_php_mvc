@@ -34,7 +34,7 @@ private $model ;
         }
         $id = $_GET['id'];
         $cat = $this->model->findOneCategory($id);
-       $view= __DIR__ . "/../view/admin/category/edite.php";
+       $view= __DIR__ . "/../view/admin/category/edit.php";
         include __DIR__ . "/../view/admin/layout.php";
     }
     public function update(){

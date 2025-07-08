@@ -50,8 +50,10 @@
             <td><?=$c['description'] ?></td>
             <td>
                  <a href="/sotre_php_mvc/index.php?controller=category&action=destroy&id=<?= $c['id'] ?>" onclick="return confirm('Are you sure?');">
-                        <button>Delete</button>
-                    </a>
+                        <button>Delete</button> </a>
+                <a href="/sotre_php_mvc/index.php?controller=category&action=edit&id=<?= $c['id']?>" >
+                    <button>update</button></a>
+
             </td>
         </tr>
     <?php endforeach; ?>
