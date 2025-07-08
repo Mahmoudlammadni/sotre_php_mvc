@@ -17,4 +17,15 @@ private $model ;
     include __DIR__ . "/../view/admin/layout.php";
 
     }
+    public function store(){
+        if($_SERVER["REQUEST_METHOD"] === "POST") {
+            $name=$_POST["name"];
+            $description=$_POST["description"];
+        }
+        $this->model->StoreCategory($name,$description);
+        header("Location: index.php?controller=category&action=index");
+         exit;
+        
+    }
+    
 }

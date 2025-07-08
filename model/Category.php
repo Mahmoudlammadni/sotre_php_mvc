@@ -11,7 +11,7 @@ class Category {
     public function StoreCategory($name,$des){
         try{
             $req=$this->pdo->prepare("INSERT INTO `categories`( name, description)
-                                      VALUES( :name, :description ),");
+                                      VALUES( :name, :description )");
             $req->execute([
                 "name"=>$name,
                 "description"=>$des
