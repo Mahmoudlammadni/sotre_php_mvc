@@ -21,4 +21,14 @@ class Category {
 
         }
     }
+    public function destroy($id){
+        try{
+            $stmt=$this->pdo->prepare("DELETE FROM `categories` where id=:id");
+            $stmt->execute([
+                "id"=>$id
+            ]);
+        }catch(PDOException $e){
+            echo "Failed".$e->getMessage();
+        }
+    }
 }

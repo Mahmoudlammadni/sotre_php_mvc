@@ -49,6 +49,8 @@
             <td><?=$c['name'] ?></td>
             <td><?=$c['description'] ?></td>
             <td>
+                <a href="">delete</a>
+                
             </td>
         </tr>
     <?php endforeach; ?>
