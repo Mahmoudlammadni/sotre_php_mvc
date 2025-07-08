@@ -8,6 +8,13 @@ class Category {
         $stmt = $this->pdo->query(" SELECT * from categories");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function findOneCategory($id){
+        $req= $this->pdo->prepare("SELECT * FROM categories where id=:id");
+        $req->execute([
+            "id"=>$id
+        ]);
+         return $req->fetch(PDO::FETCH_ASSOC);
+    }
     public function StoreCategory($name,$des){
         try{
             $req=$this->pdo->prepare("INSERT INTO `categories`( name, description)
