@@ -49,8 +49,9 @@
             <td><?=$c['name'] ?></td>
             <td><?=$c['description'] ?></td>
             <td>
-                <a href="">delete</a>
-                
+                 <a href="/sotre_php_mvc/index.php?controller=category&action=destroy&id=<?= $c['id'] ?>" onclick="return confirm('Are you sure?');">
+                        <button>Delete</button>
+                    </a>
             </td>
         </tr>
     <?php endforeach; ?>

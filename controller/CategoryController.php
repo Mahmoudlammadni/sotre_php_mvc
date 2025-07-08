@@ -27,5 +27,17 @@ private $model ;
          exit;
         
     }
+    public function destroy(){
+        if(isset($_GET["id"])){
+            $id=$_GET["id"];
+            $this->model->destroy($id);
+            header("Location:index.php?controller=category&action=index");
+             exit;
+        }else{
+            echo "Clinet Id not found";
+        }}
+    
     
 }
+
+
