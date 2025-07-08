@@ -1,0 +1,154 @@
+    .main-content {
+        margin-left: 280px; 
+        padding: 2rem;
+        transition: margin-left 0.3s ease;
+    }
+
+    .sidebar.collapsed ~ .main-content {
+        margin-left: 90px;
+    }
+
+    .user-management-wrapper {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .user-management-heading {
+        color: #1a365d;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .user-table-container {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e2e8f0;
+        background: white;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .user-data-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 900px;
+    }
+
+    .user-data-table thead {
+        background: #f7fafc;
+        color: #4a5568;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .user-data-table th {
+        padding: 0.875rem 1rem;
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.8125rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .user-data-table td {
+        padding: 0.875rem 1rem;
+        border-bottom: 1px solid #edf2f7;
+        font-size: 0.875rem;
+        color: #4a5568;
+        vertical-align: middle;
+    }
+
+    .user-data-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .user-data-table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    .user-actions-cell {
+        display: flex;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .user-action-btn {
+        padding: 0.375rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        border: 1px solid transparent;
+    }
+
+    .user-edit-btn {
+        background-color: #ebf8ff;
+        color: #3182ce;
+        border-color: #bee3f8;
+    }
+
+    .user-edit-btn:hover {
+        background-color: #bee3f8;
+    }
+
+    .user-delete-btn {
+        background-color: #fff5f5;
+        color: #e53e3e;
+        border-color: #fed7d7;
+    }
+
+    .user-delete-btn:hover {
+        background-color: #fed7d7;
+    }
+
+    .user-password-field {
+        font-family: monospace;
+        color: #718096;
+        font-size: 0.75rem;
+    }
+
+    @media (max-width: 1200px) {
+        .main-content {
+            margin-left: 90px;
+            padding: 1.5rem;
+        }
+        
+        .sidebar.collapsed ~ .main-content {
+            margin-left: 90px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .main-content {
+            margin-left: 0;
+            padding: 1rem;
+        }
+        
+        .user-table-container {
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .user-management-heading {
+            font-size: 1.25rem;
+        }
+        
+        .user-actions-cell {
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .user-action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
