@@ -12,7 +12,7 @@
     <form class="form-container"  action="/sotre_php_mvc/index.php?controller=category&action=store" method="post">
         <input class="input-field"  type="text" placeholder="name" name="name" required><br>
         <input class="input-field"  type="text" placeholder="description" name="description" required><br>
-        <button class="action-button" type="submit">add client</button>
+        <button class="action-button" type="submit">add Category</button>
     </form>   
 
 </body>

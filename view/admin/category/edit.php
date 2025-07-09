@@ -15,7 +15,7 @@
          type="text" placeholder="name" name="name" required><br>
         <input class="input-field"  value="<?= htmlspecialchars($cat['description']) ?>"
          type="text" placeholder="description" name="description" required><br>
-        <button class="action-button" type="submit">update  client</button>
+        <button class="action-button" type="submit">update Category</button>
     </form>   
 </body>
 </html>
