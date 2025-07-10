@@ -30,7 +30,6 @@
             overflow-x: hidden;
         }
 
-        /* ========== Sidebar ========== */
      .sidebar {
     width: var(--sidebar-expanded);
     height: 100vh;

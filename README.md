@@ -27,6 +27,7 @@ A complete inventory and sales management web application built with **vanilla P
 
 ---
 
+
 ## 🧱 Database Structure
 
 Main tables:
@@ -48,3 +49,19 @@ You can find the SQL schema in [`database/schema.sql`](database/schema.sql)
    git clone https://github.com/Mahmoudlammadni/sotre_php_mvc.git
    cd sotre_php_mvc
    ```
+## 🛠️ CLI Command Tool (mahmoud)
+This project includes a CLI script named mahmoud to quickly generate MVC components:
+
+Command	Description
+php mahmoud do:controller Name	Generate a new controller class
+php mahmoud do:model Name	Generate a new model class
+php mahmoud do:view name	Generate a new view template file
+
+Example usage:
+bash
+Copier
+Modifier
+php mahmoud do:controller Product
+php mahmoud do:model Order
+php mahmoud do:view dashboard
+This tool will create the corresponding files in the /controller, /model, or /view folders if they don't already exist.
