@@ -41,6 +41,68 @@ PHP;
         file_put_contents($controllerFile, $template);
         echo "✅ Controller created: $controllerFile\n";
         break;
+    case 'do:model':
+        if (!isset($argv[2])) {
+            echo "❌ You must provide a model name.\n";
+            exit;
+        }
+
+        $modelName = ucfirst($argv[2]);
+        $modelDir = __DIR__ . '/model';
+        $modelFile = $modelDir . '/' . $modelName . '.php';
+
+        if (!is_dir($modelDir)) {
+            mkdir($modelDir, 0777, true);
+        }
+
+        if (file_exists($modelFile)) {
+            echo "⚠️ Model already exists: $modelFile\n";
+            exit;
+        }
+
+        $modelTemplate = <<<PHP
+<?php
+
+class $modelName {
+    public function __construct() {
+        // Model constructor
+    }
+
+    // Add your model methods here
+}
+PHP;
+
+        file_put_contents($modelFile, $modelTemplate);
+        echo "✅ Model created: $modelFile\n";
+        break;
+    case 'do:view':
+        if (!isset($argv[2])) {
+            echo "❌ You must provide a view name.\n";
+            exit;
+        }
+
+        $viewName = strtolower($argv[2]);
+        $viewDir = __DIR__ . '/view';
+        $viewFile = $viewDir . '/' . $viewName . '.php';
+
+        if (!is_dir($viewDir)) {
+            mkdir($viewDir, 0777, true);
+        }
+
+        if (file_exists($viewFile)) {
+            echo "⚠️ View already exists: $viewFile\n";
+            exit;
+        }
+
+        $viewTemplate = <<<HTML
+        <h1>$viewName View</h1>
+        <p>This is the $viewName view template.</p>
+    HTML;
+
+        file_put_contents($viewFile, $viewTemplate);
+        echo "✅ View created: $viewFile\n";
+        break;
+
 
     default:
         echo "❌ Unknown command: $command\n";
