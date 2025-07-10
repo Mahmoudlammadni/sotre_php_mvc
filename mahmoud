@@ -1,0 +1,48 @@
+<?php
+
+$argv = $_SERVER['argv'];
+
+if (!isset($argv[1])) {
+    echo "❌ No command provided.\n";
+    exit;
+}
+
+$command = $argv[1];
+
+switch ($command) {
+    case 'do:controller':
+        if (!isset($argv[2])) {
+            echo "❌ You must provide a controller name.\n";
+            exit;
+        }
+
+        $controllerName = ucfirst($argv[2]) . 'Controller';
+        $controllerFile = __DIR__ . '/controller/' . $controllerName . '.php';
+
+        if (file_exists($controllerFile)) {
+            echo "⚠️ Controller already exists: $controllerFile\n";
+            exit;
+        }
+
+        $template = <<<PHP
+<?php
+
+class $controllerName {
+    public function __construct() {
+        // Default constructor
+    }
+
+    public function index() {
+        // Default index method
+    }
+}
+PHP;
+
+        file_put_contents($controllerFile, $template);
+        echo "✅ Controller created: $controllerFile\n";
+        break;
+
+    default:
+        echo "❌ Unknown command: $command\n";
+        break;
+}
