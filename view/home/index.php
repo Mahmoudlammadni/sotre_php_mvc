@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">     
     <style type="text/css">
+        
         .hero-gradient {
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.95) 0%, rgba(124, 58, 237, 0.95) 100%);
         }
@@ -22,6 +23,7 @@
             40% {transform: translateY(-10px);}
             60% {transform: translateY(-5px);}
         }
+        
     </style>
 </head>
 <body class="bg-gray-50 font-sans antialiased">
@@ -43,16 +45,40 @@
                     <a href="#" class="text-gray-700 hover:text-primary transition">Collections</a>
                     <a href="#" class="text-gray-700 hover:text-primary transition">About</a>
                 </nav>
-                <div class="flex items-center space-x-4">
-                    <a href="index.php?controller=user&action=showLogin" class="text-gray-700 hover:text-primary transition hidden sm:inline-block">
-                        <i class="fas fa-user mr-1"></i> Sign In
-                    </a>
-                    <a href="index.php?controller=user&action=register" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md transition shadow-sm hidden sm:inline-block">
-                        Register
-                    </a>
-                    <button class="md:hidden text-gray-700">
-                        <i class="fas fa-bars"></i>
-                    </button>
+
+                   <div class="flex items-center space-x-4">
+    <?php if (isset($_SESSION['user'])): ?>
+        <div class="flex items-center space-x-2">
+            <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="setTimeout(() => open = false, 200)" @click.away="open = false">
+                <button @click="open = !open" class="flex items-center space-x-1 focus:outline-none">
+                    <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="hidden sm:inline-block font-medium"><?= htmlspecialchars($_SESSION['user']['username']) ?></span>
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-200" :class="{'transform rotate-180': open}"></i>
+                </button>
+                <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                     x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                     x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
+                     x-transition:leave-end="opacity-0 scale-95"
+                     class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <a href="index.php?controller=client&action=profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">My Profile</a>                    <a href="index.php?controller=user&action=logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Logout</a>
+                </div>
+            </div>
+        </div>
+    <?php else: ?>
+        <a href="index.php?controller=user&action=showLogin" class="text-gray-700 hover:text-primary transition hidden sm:inline-block">
+            <i class="fas fa-user mr-1"></i> Sign In
+        </a>
+        <a href="index.php?controller=user&action=register" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md transition shadow-sm hidden sm:inline-block">
+            Register
+        </a>
+    <?php endif; ?>
+    <button class="md:hidden text-gray-700">
+        <i class="fas fa-bars"></i>
+    </button>
+</div>
+
                 </div>
             </div>
         </div>
@@ -324,5 +350,6 @@
     </button>
 
     <script src="/sotre_php_mvc/public/javascript/home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </body>
 </html>
