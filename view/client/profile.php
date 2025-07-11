@@ -1,6 +1,21 @@
 <?php 
 $client = $clientData ?? [];
 $user = $_SESSION['user'] ?? [];
+
+$cartItems = [];
+$cartTotal = 0;
+
+if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $productId => $quantity) {
+        $product = $this->productModel->getById($productId);
+        if ($product) {
+            $product['quantity'] = $quantity;
+            $product['subtotal'] = $product['price'] * $quantity;
+            $cartItems[] = $product;
+            $cartTotal += $product['subtotal'];
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +42,9 @@ $user = $_SESSION['user'] ?? [];
         .home-btn:hover {
             transform: scale(1.05);
         }
+        .cart-item:hover {
+            background-color: rgba(249, 250, 251, 0.8);
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 font-sans antialiased">
@@ -49,7 +67,16 @@ $user = $_SESSION['user'] ?? [];
                     </div>
                 </div>
                 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-6">
+                    <a href="index.php?controller=cart&action=view" class="relative text-gray-600 hover:text-indigo-600">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <?php if (!empty($cartItems)): ?>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                <?= array_sum(array_column($cartItems, 'quantity')) ?>
+                            </span>
+                        <?php endif; ?>
+                    </a>
+                    
                     <?php if (isset($_SESSION['user'])): ?>
                         <div class="relative group">
                             <button class="flex items-center space-x-1 focus:outline-none">
@@ -145,6 +172,77 @@ $user = $_SESSION['user'] ?? [];
                     </div>
                 </div>
             </div>
+
+
+<div class="mt-12">
+    <h2 class="text-2xl font-serif font-bold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-shopping-cart mr-2 text-indigo-500"></i>
+        Your Shopping Cart
+    </h2>
+    
+    <?php if (empty($cartItems)): ?>
+        <div class="bg-white rounded-xl shadow-md p-8 text-center">
+            <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
+            <p class="text-gray-600 text-xl">Your cart is empty</p>
+            <a href="index.php?controller=product&action=index" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition">
+                Browse Products
+            </a>
+        </div>
+    <?php else: ?>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+            <div class="divide-y divide-gray-200">
+                <?php foreach ($cartItems as $item): ?>
+                <div class="p-4 cart-item transition-colors duration-200">
+                    <div class="flex flex-col md:flex-row gap-4 items-center">
+                        <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <?php if (!empty($item['image_path'])): ?>
+                                <img src="/sotre_php_mvc/<?= htmlspecialchars($item['image_path']) ?>" 
+                                     alt="<?= htmlspecialchars($item['name']) ?>" 
+                                     class="max-h-full max-w-full object-contain">
+                            <?php else: ?>
+                                <div class="text-gray-400">
+                                    <i class="fas fa-image fa-2x"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium"><?= htmlspecialchars($item['name'] ?? 'No name') ?></h3>
+                            <p class="text-gray-600 text-sm"><?= htmlspecialchars($item['description'] ?? '') ?></p>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="text-right">
+                                <p class="text-gray-700 font-medium"><?= number_format($item['subtotal'] ?? 0, 2) ?> MAD</p>
+                                <p class="text-gray-500 text-sm">
+                                    <?= $item['quantity'] ?? 0 ?> x <?= number_format($item['price'] ?? 0, 2) ?> MAD
+                                </p>
+                            </div>
+                            <a href="index.php?controller=cart&action=remove&id=<?= $item['id'] ?>" 
+                               class="text-red-500 hover:text-red-700 transition-colors">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <div class="p-6 bg-gray-50">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-semibold">Subtotal:</span>
+                    <span class="text-xl font-bold"><?= number_format($cartTotal, 2) ?> MAD</span>
+                </div>
+                <div class="flex flex-col sm:flex-row justify-end gap-3">
+                    <a href="index.php?controller=product&action=index" class="px-6 py-2 border border-gray-300 rounded-md text-center hover:bg-gray-100 transition">
+                        Continue Shopping
+                    </a>
+                    <a href="index.php?controller=cart&action=checkout" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition text-center">
+                        Proceed to Checkout
+                    </a>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
         </div>
     </main>
 
@@ -154,6 +252,21 @@ $user = $_SESSION['user'] ?? [];
         </div>
     </footer>
     
-    <script src="/sotre_php_mvc/public/javascript/home.js"></script>
+    <script>
+    function addToCart(productId) {
+        fetch(`index.php?controller=cart&action=add&id=${productId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const cartCount = document.getElementById('cart-count');
+                    if (cartCount) {
+                        cartCount.textContent = data.cart_count;
+                        cartCount.classList.remove('hidden');
+                    }
+                    alert('Product added to cart!');
+                }
+            });
+    }
+    </script>
 </body>
 </html>
