@@ -58,6 +58,17 @@ class ClientController{
         header("Location: index.php?controller=client&action=index");
 
     }
+    
+public function profile() {
+    if (!isset($_SESSION['user'])) {
+        header("Location: index.php?controller=user&action=showLogin");
+        exit;
+    }
+    
+    $clientData = $this->model->getClientByUserId($_SESSION['user']['id']);
+    
+    include __DIR__ . '/../view/client/profile.php';
+}
 
     
     public function destroy(){

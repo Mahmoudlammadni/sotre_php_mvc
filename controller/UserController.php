@@ -18,7 +18,7 @@ class UserController{
     }
 
 
-   public function login() {
+ public function login() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
@@ -26,20 +26,23 @@ class UserController{
         $user = $this->model->LogIn($email, $password);
 
         if ($user) {
-            $_SESSION['user'] = $user;
+            $_SESSION['user'] = [
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'role_name' => $user['role_name'],
+                'created_at' => $user['created_at'] ?? date('Y-m-d H:i:s') 
+            ];
 
             if ($user['role_name'] === 'admin') {
                 header("Location: index.php?controller=product&action=index");
-            } elseif ($user['role_name'] === 'client') {
-                include __DIR__ . '/../view/client/index.php';
             } else {
-                echo "Role not handled.";
+                header("Location: index.php?controller=home&action=index");
             }
+            exit;
         } else {
             echo "Invalid credentials.";
         }
-    } else {
-        echo "Invalid request method.";
     }
 }
 
