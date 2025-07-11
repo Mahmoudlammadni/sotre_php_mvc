@@ -1,12 +1,15 @@
 <?php 
 include __DIR__ . "/../model/Client.php";
+include __DIR__ . "/../model/Product.php";
 class ClientController{
     private  $model;
+    private $productModel;
   
     public function __construct()
     {
         global $pdo;
         $this->model= new Client($pdo);
+        $this->productModel = new Product($pdo); 
     }
     public function index(){
         $clients=$this->model->all_clients();
@@ -59,16 +62,31 @@ class ClientController{
 
     }
     
-public function profile() {
-    if (!isset($_SESSION['user'])) {
-        header("Location: index.php?controller=user&action=showLogin");
-        exit;
+ public function profile() {
+        if (!isset($_SESSION['user'])) {
+            header("Location: index.php?controller=user&action=showLogin");
+            exit;
+        }
+        
+        $clientData = $this->model->getClientByUserId($_SESSION['user']['id']);
+        
+        $cartItems = [];
+        $cartTotal = 0;
+        
+        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $productId => $quantity) {
+                $product = $this->productModel->getById($productId);
+                if ($product) {
+                    $product['quantity'] = $quantity;
+                    $product['subtotal'] = $product['price'] * $quantity;
+                    $cartItems[] = $product;
+                    $cartTotal += $product['subtotal'];
+                }
+            }
+        }
+        
+        include __DIR__ . '/../view/client/profile.php';
     }
-    
-    $clientData = $this->model->getClientByUserId($_SESSION['user']['id']);
-    
-    include __DIR__ . '/../view/client/profile.php';
-}
 
     
     public function destroy(){

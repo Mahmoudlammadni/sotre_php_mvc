@@ -133,9 +133,10 @@
                                 <?= htmlspecialchars($product['quantity']) ?> in stock
                             </span>
                         </div>
-                        <button class="w-full bg-primary hover:bg-primary-dark text-white py-2 rounded-md transition flex items-center justify-center gap-2">
-                            <i class="fas fa-shopping-cart"></i> Add to Cart
-                        </button>
+                      <button onclick="addToCart(<?= $product['id'] ?>)" 
+        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-md transition flex items-center justify-center gap-2">
+    <i class="fas fa-shopping-cart"></i> Add to Cart
+</button>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -351,5 +352,17 @@
 
     <script src="/sotre_php_mvc/public/javascript/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+function addToCart(productId) {
+    fetch(`index.php?controller=cart&action=add&id=${productId}`)
+        .then(response => {
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                const current = parseInt(cartCount.textContent) || 0;
+                cartCount.textContent = current + 1;
+            }
+        });
+}
+</script>
 </body>
 </html>
