@@ -159,10 +159,10 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                                 Account Actions
                             </h3>
                             <div class="space-y-3">
-                                <a href="index.php?controller=client&action=edit&id=<?= $user['id'] ?>" 
-                                   class="block w-full text-center bg-white border border-indigo-100 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-200 px-4 py-3 rounded-lg transition action-btn shadow-sm flex items-center justify-center">
+                              
+                                <a href="/sotre_php_mvc/index.php?controller=client&action=edit&id=<?= $client['user_id']?>"  class="block w-full text-center bg-white border border-indigo-100 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-200 px-4 py-3 rounded-lg transition action-btn shadow-sm flex items-center justify-center">
                                     <i class="fas fa-edit mr-2"></i> Edit Profile
-                                </a>
+                        </a>
                                 <a href="index.php?controller=user&action=logout" 
                                    class="block w-full text-center bg-white border border-red-100 text-red-600 hover:bg-red-50 hover:border-red-200 px-4 py-3 rounded-lg transition action-btn shadow-sm flex items-center justify-center">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
@@ -184,7 +184,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         <div class="bg-white rounded-xl shadow-md p-8 text-center">
             <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
             <p class="text-gray-600 text-xl">Your cart is empty</p>
-            <a href="index.php?controller=product&action=index" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition">
+            <a href="index.php?controller=home&action=index" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition">
                 Browse Products
             </a>
         </div>
@@ -194,6 +194,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 <?php foreach ($cartItems as $item): ?>
                 <div class="p-4 cart-item transition-colors duration-200">
                     <div class="flex flex-col md:flex-row gap-4 items-center">
+                        
                         <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center">
                             <?php if (!empty($item['image_path'])): ?>
                                 <img src="/sotre_php_mvc/<?= htmlspecialchars($item['image_path']) ?>" 
@@ -216,10 +217,10 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                                     <?= $item['quantity'] ?? 0 ?> x <?= number_format($item['price'] ?? 0, 2) ?> MAD
                                 </p>
                             </div>
-                            <a href="index.php?controller=cart&action=remove&id=<?= $item['id'] ?>" 
-                               class="text-red-500 hover:text-red-700 transition-colors">
+                           <button onclick="removeFromCart(<?= $item['id'] ?>)" 
+                                class="text-red-500 hover:text-red-700 transition-colors">
                                 <i class="fas fa-trash-alt"></i>
-                            </a>
+                                </button>
                         </div>
                     </div>
                 </div>
@@ -232,7 +233,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                     <span class="text-xl font-bold"><?= number_format($cartTotal, 2) ?> MAD</span>
                 </div>
                 <div class="flex flex-col sm:flex-row justify-end gap-3">
-                    <a href="index.php?controller=product&action=index" class="px-6 py-2 border border-gray-300 rounded-md text-center hover:bg-gray-100 transition">
+                    <a href="index.php?controller=home&action=index" class="px-6 py-2 border border-gray-300 rounded-md text-center hover:bg-gray-100 transition">
                         Continue Shopping
                     </a>
                     <a href="index.php?controller=cart&action=checkout" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition text-center">
@@ -251,22 +252,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             <p>© <?= date('Y') ?> LuxeCart. All rights reserved.</p>
         </div>
     </footer>
-    
-    <script>
-    function addToCart(productId) {
-        fetch(`index.php?controller=cart&action=add&id=${productId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const cartCount = document.getElementById('cart-count');
-                    if (cartCount) {
-                        cartCount.textContent = data.cart_count;
-                        cartCount.classList.remove('hidden');
-                    }
-                    alert('Product added to cart!');
-                }
-            });
-    }
-    </script>
+    <script src="/sotre_php_mvc/public/javascript/profile.js"></script>
+   
 </body>
 </html>
