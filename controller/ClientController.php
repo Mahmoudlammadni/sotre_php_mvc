@@ -35,17 +35,28 @@ class ClientController{
      }
  }
 
-    public function edit(){
-        if (!isset($_GET['id'])) {
+   public function edit() {
+    if (!isset($_GET['id'])) {
         echo "User ID is missing.";
         return;
     }
-         $id = $_GET['id'];
-        $client = $this->model->getClientByUserId($id);
-        $view= __DIR__ ."/../view/admin/clients/edite.php";
-        include __DIR__ . "/../view/admin/layout.php";
 
+    $id = $_GET['id'];
+    $client = $this->model->getClientByUserId($id);
+
+    $role = $_SESSION['user']['role_name'] ?? '';
+
+    if ($role === 'admin') {
+        $view = __DIR__ . "/../view/admin/clients/edite.php";
+        include __DIR__ . "/../view/admin/layout.php";
+    } else {
+        $clientData = $client;
+        include __DIR__ . "/../view/client/edite.php";
+       
+        
     }
+}
+
 
     public function update(){
         $id = $_GET['id'] ;
@@ -58,7 +69,13 @@ class ClientController{
         $phone = $_POST["phone"];
         $address = $_POST["address"];
         $this->model->UpdateClient($id,$name,$email,$password,$phone,$address);
-        header("Location: index.php?controller=client&action=index");
+        $role = $_SESSION['user']['role_name'] ?? '';
+         if ($role === 'admin') {
+             header("Location: index.php?controller=client&action=index");
+         } else {
+             header("Location: index.php?controller=client&action=profile&id=$id");
+         }
+    
 
     }
     
@@ -73,17 +90,20 @@ class ClientController{
         $cartItems = [];
         $cartTotal = 0;
         
-        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-            foreach ($_SESSION['cart'] as $productId => $quantity) {
-                $product = $this->productModel->getById($productId);
-                if ($product) {
-                    $product['quantity'] = $quantity;
-                    $product['subtotal'] = $product['price'] * $quantity;
-                    $cartItems[] = $product;
-                    $cartTotal += $product['subtotal'];
+       if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $productId => $quantity) {
+            $product = $this->productModel->getById($productId);
+            if ($product) {
+                if (!empty($product['image_path']) && strpos($product['image_path'], '/') !== 0) {
+                    $product['image_path'] = '/' . ltrim($product['image_path'], '/');
                 }
+                $product['quantity'] = $quantity;
+                $product['subtotal'] = $product['price'] * $quantity;
+                $cartItems[] = $product;
+                $cartTotal += $product['subtotal'];
             }
         }
+    }
         
         include __DIR__ . '/../view/client/profile.php';
     }
