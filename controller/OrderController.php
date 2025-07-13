@@ -11,21 +11,39 @@ class OrderController {
         $this->orderItem = new OrderItem($pdo);
     }
 
-    public function show($orderId = null) {  
-        if (!$orderId) {
-            header("Location: index.php?controller=home");
-            exit();
-        }
+ public function show() {
+    $orderId = $_GET['id'] ?? null;
 
-        $order = $this->order->getById($orderId);
-        $items = $this->orderItem->getByOrder($orderId);
-        
-        include __DIR__ . '/../view/client/order_confirmation.php';
+    if (!$orderId || !is_numeric($orderId)) {
+        $_SESSION['error'] = "Invalid order ID";
+        header("Location: index.php?controller=order&action=index");
+        exit();
     }
+
+    $order = $this->order->getById($orderId);
+    
+    if ($order === false) {
+        $_SESSION['error'] = "Database error occurred";
+        header("Location: index.php?controller=order&action=index");
+        exit();
+    }
+    
+    if (empty($order)) {
+        $_SESSION['error'] = "Order not found";
+        header("Location: index.php?controller=order&action=index");
+        exit();
+    }
+
+    $items = $this->orderItem->getByOrder($orderId);
+    
+    $view = __DIR__ . '/../view/admin/orders/show.php';
+    include __DIR__ . '/../view/admin/layout.php';
+}
 
 
     public function index() {
         $orders = $this->order->getAll();
+        $_SESSION['pending_order_count'] = $this->order->countPendingOrders();
         $view = __DIR__ . '/../view/admin/orders/index.php';
         include __DIR__ . '/../view/admin/layout.php';
     }
