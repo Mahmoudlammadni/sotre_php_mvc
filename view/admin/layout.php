@@ -248,19 +248,23 @@
                             </ul>
                         </li>
                         <?php endif; ?>
-                        <li>
-                            <a href="#" class="flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg group"
-                               :class="{'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300': isActive('orders'), 
-                                       'hover:bg-gray-100 dark:hover:bg-gray-700': !isActive('orders')}">
-                                <div class="flex items-center">
-                                    <i class='bx bx-cart text-xl mr-3'></i>
-                                    <span :class="{'opacity-0 w-0': isSidebarCollapsed, 'opacity-100': !isSidebarCollapsed}">Orders</span>
-                                    <span x-show="isSidebarCollapsed" class="absolute left-full ml-4 px-2 py-1 text-xs rounded-md bg-gray-900 text-white opacity-0 group-hover:opacity-100 whitespace-nowrap">Orders</span>
-                                </div>
-                                <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-primary-600 rounded-full"
-                                      :class="{'opacity-0 w-0': isSidebarCollapsed, 'opacity-100': !isSidebarCollapsed}">9</span>
-                            </a>
-                        </li>
+                       <li>
+    <a href="index.php?controller=order&action=index" class="flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg group"
+       :class="{'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300': isActive('orders'), 
+               'hover:bg-gray-100 dark:hover:bg-gray-700': !isActive('orders')}">
+        <div class="flex items-center">
+            <i class='bx bx-cart text-xl mr-3'></i>
+            <span :class="{'opacity-0 w-0': isSidebarCollapsed, 'opacity-100': !isSidebarCollapsed}">Orders</span>
+            <span x-show="isSidebarCollapsed" class="absolute left-full ml-4 px-2 py-1 text-xs rounded-md bg-gray-900 text-white opacity-0 group-hover:opacity-100 whitespace-nowrap">Orders</span>
+        </div>
+        <?php if (isset($_SESSION['pending_order_count']) && $_SESSION['pending_order_count'] > 0): ?>
+        <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-primary-600 rounded-full"
+              :class="{'opacity-0 w-0': isSidebarCollapsed, 'opacity-100': !isSidebarCollapsed}">
+            <?= $_SESSION['pending_order_count'] ?>
+        </span>
+        <?php endif; ?>
+    </a>
+</li>
                         
                         <li>
                             <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg group"

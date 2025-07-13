@@ -25,14 +25,28 @@ class Order {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getById($id) {
+    
+public function countPendingOrders() {
+    $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM orders WHERE status = 'pending'");
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+
+
+public function getById($id) {
+    try {
         $stmt = $this->pdo->prepare("SELECT o.*, c.name AS client_name 
-                                    FROM orders o
-                                    JOIN clients c ON o.client_id = c.id
-                                    WHERE o.id = :id");
+            FROM orders o
+            JOIN clients c ON o.client_id = c.id
+            WHERE o.id = :id
+        ");
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
+    } catch (PDOException $e) {
+        error_log("Order fetch error: " . $e->getMessage());
+        return false;
     }
+}
 
     public function getByUserId($userId) {
     $stmt = $this->pdo->prepare("SELECT o.*, c.name AS client_name 

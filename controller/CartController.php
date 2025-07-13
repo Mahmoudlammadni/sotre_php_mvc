@@ -135,7 +135,7 @@ class CartController {
             }
 
             unset($_SESSION['cart']);
-            header("Location: index.php?controller=order&action=show&id=$orderId");
+            header("Location: index.php?controller=client&action=profile&id=$orderId");
             exit();
 
         } catch (Exception $e) {
