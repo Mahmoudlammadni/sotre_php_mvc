@@ -1,6 +1,8 @@
 <?php
 include __DIR__ . '/../model/User.php';
 include __DIR__ . "/../model/Role.php";
+
+
 class UserController{
     private  $model;
     private $role ;
@@ -34,7 +36,7 @@ class UserController{
                 'created_at' => $user['created_at'] ?? date('Y-m-d H:i:s') 
             ];
 
-            if ($user['role_name'] === 'admin') {
+            if ($user['role_name'] === 'admin' || $user['role_name'] === 'manager') {
                 header("Location: index.php?controller=product&action=index");
             } else {
                 header("Location: index.php?controller=home&action=index");

@@ -214,7 +214,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+                        <?php if ($_SESSION['user']['role_name'] === 'admin'): ?>
                         <li x-data="{ open: false }">
                             <button @click="!isSidebarCollapsed && (open = !open)" 
                                     class="flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-lg group"
@@ -247,7 +247,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+                        <?php endif; ?>
                         <li>
                             <a href="#" class="flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg group"
                                :class="{'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300': isActive('orders'), 
@@ -273,6 +273,9 @@
                         </li>
                     </ul>
                 </div>
+            <?php if ($_SESSION['user']['role_name'] === 'admin'): ?>
+
+
                 
                 <div class="mb-6">
                     <p class="text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400 mb-2 px-2"
@@ -327,7 +330,7 @@
                 </div>
             </div>
         </nav>
-        
+        <?php endif; ?>
         <div class="p-4 border-t border-gray-200 dark:border-gray-700">
             <div class="flex items-center space-x-3 group">
                 <img src="https://avatars.githubusercontent.com/u/187449224?v=4" alt="User" class="w-10 h-10 rounded-full">

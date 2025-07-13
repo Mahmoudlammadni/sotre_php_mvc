@@ -25,12 +25,14 @@
                                     Update
                                 </button>
                             </a>
+                            <?php if ($_SESSION['user']['role_name'] === 'admin'): ?>
                             <a href="/sotre_php_mvc/index.php?controller=category&action=destroy&id=<?= $c['id'] ?>" 
                                onclick="return confirm('Are you sure you want to delete this category?');">
                                 <button class="user-action-btn user-delete-btn">
                                     Delete
                                 </button>
                             </a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>
