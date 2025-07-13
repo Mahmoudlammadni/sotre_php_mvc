@@ -75,3 +75,11 @@ CREATE TABLE order_items (
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES products(id)
 );
+CREATE TABLE store_settings (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  setting_key VARCHAR(50) UNIQUE,
+  setting_value TEXT,
+  is_encrypted BOOLEAN DEFAULT FALSE,
+  updated_at TIMESTAMP,
+  updated_by INT REFERENCES users(id)
+);
