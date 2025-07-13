@@ -25,21 +25,23 @@ class User{
     }
 
     public function LogIn($email,$password){
-        $req = $this->pdo->prepare("select users.* , roles.name as role_name from users inner join roles on users.role_id = roles.id
-         where users.email=:email and users.password=:password");
-        $req->execute([
-            'email'=>$email ,
-            "password"=>$password
-        ]);
-        $user=$req->fetch(PDO::FETCH_ASSOC);
-        if($user){
-            return $user ;
+        $req = $this->pdo->prepare("SELECT users.*, roles.name as role_name 
+                            FROM users 
+                            INNER JOIN roles ON users.role_id = roles.id 
+                            WHERE users.email = :email");
+        $req->execute(['email' => $email]);
+        $user = $req->fetch(PDO::FETCH_ASSOC);
+            
+        if ($user && password_verify($password, $user['password'])) {
+            return $user;
         }
-        return false ; 
+        return false;
+
     }
     
     public function StoreUser($name,$email,$password,$role){
         try{
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $req=$this->pdo->prepare("INSERT INTO `users`(`username`, `email`, `password`, `role_id`) VALUE (:name,:email,:password,:role_id)");
         $req->execute(["name"=>$name,"email"=>$email,"password"=>$password,"role_id"=>$role]);
         }catch(PDOException $e){

@@ -39,6 +39,7 @@ class Client {
             if (!$role) {
             throw new Exception("Client role not found");
         }
+            $password = password_hash($password, PASSWORD_DEFAULT);
             $stmt1 = $this->pdo->prepare("INSERT INTO users (username, email, password, role_id)
                                           VALUES (:name, :email, :password, :role_id)
             ");
@@ -68,37 +69,45 @@ class Client {
         }
     }
 
-    public function UpdateClient($id, $name, $email, $password, $phone, $address) {
-        try {
-            $this->pdo->beginTransaction();
-            $stmt1 = $this->pdo->prepare(" UPDATE users SET username = :name, email = :email, password =
-                                          :password WHERE id = :id
-            ");
-            $stmt1->execute([
-                'name' => $name,
-                'email' => $email,
-                'password' => $password,
-                'id' => $id
-            ]);
+   public function UpdateClient($id, $name, $email, $password, $phone, $address) {
+    try {
+        $this->pdo->beginTransaction();
 
-            $stmt2 = $this->pdo->prepare("UPDATE clients SET name = :name, email = :email, phone = :phone, 
-                                        address = :address WHERE user_id = :id
-            ");
-            $stmt2->execute([
-                'name' => $name,
-                'email' => $email,
-                'phone' => $phone,
-                'address' => $address,
-                'id' => $id
-            ]);
-
-            $this->pdo->commit();
-            return true;
-        } catch (PDOException $e) {
-            $this->pdo->rollBack();
-            return false;
+        $currentUser = $this->getClientByUserId($id);
+        if (!$currentUser) {
+            throw new Exception("Client not found");
         }
+
+        if (empty($password)) {
+            $password = $currentUser['password'];
+        } else {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        $stmt1 = $this->pdo->prepare("UPDATE users SET username = :name, email = :email, password = :password WHERE id = :id");
+        $stmt1->execute([
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'id' => $id
+        ]);
+
+        $stmt2 = $this->pdo->prepare("UPDATE clients SET name = :name, email = :email, phone = :phone, address = :address WHERE user_id = :id");
+        $stmt2->execute([
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'id' => $id
+        ]);
+
+        $this->pdo->commit();
+        return true;
+    } catch (PDOException $e) {
+        $this->pdo->rollBack();
+        return false;
     }
+}
 
     public function destroy($id) {
         try {

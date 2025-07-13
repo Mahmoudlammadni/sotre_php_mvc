@@ -105,7 +105,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 </div>
                 <div class="mb-4">
                     <input class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" 
-                           type="text" placeholder="Password" name="password" value="<?= htmlspecialchars($client['password']) ?>" required>
+                           type="text" placeholder="insert new Password" name="password" required>
                 </div>
                 <div class="mb-4">
                     <input class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" 
