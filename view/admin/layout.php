@@ -73,14 +73,14 @@
                'shadow-xl': isMobileSidebarOpen
            }">
         
-        <!-- Logo Area -->
+       
         <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700">
             <div class="flex items-center space-x-3 overflow-hidden">
                 <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300">
                     <i class='bx bxs-store-alt text-xl'></i>
                 </div>
                 <span class="text-lg font-semibold whitespace-nowrap transition-opacity duration-300"
-                      :class="{'opacity-0 w-0': isSidebarCollapsed}">StorePro</span>
+                      :class="{'opacity-0 w-0': isSidebarCollapsed}">LuxeCart</span>
             </div>
             
             <button @click="toggleSidebar" class="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400">
@@ -312,15 +312,15 @@
                        :class="{'opacity-0 h-0': isSidebarCollapsed, 'opacity-100': !isSidebarCollapsed}">Settings</p>
                     
                     <ul class="space-y-1">
-                        <li>
-                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg group"
-                               :class="{'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300': isActive('settings'), 
-                                       'hover:bg-gray-100 dark:hover:bg-gray-700': !isActive('settings')}">
-                                <i class='bx bx-cog text-xl mr-3'></i>
-                                <span :class="{'opacity-0 w-0': isSidebarCollapsed, 'opacity-100': !isSidebarCollapsed}">Store Settings</span>
-                                <span x-show="isSidebarCollapsed" class="absolute left-full ml-4 px-2 py-1 text-xs rounded-md bg-gray-900 text-white opacity-0 group-hover:opacity-100 whitespace-nowrap">Settings</span>
-                            </a>
-                        </li>
+                       <li>
+    <a href="index.php?controller=settings&action=index" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg group"
+       :class="{'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300': isActive('settings'), 
+               'hover:bg-gray-100 dark:hover:bg-gray-700': !isActive('settings')}">
+        <i class='bx bx-cog text-xl mr-3'></i>
+        <span :class="{'opacity-0 w-0': isSidebarCollapsed, 'opacity-100': !isSidebarCollapsed}">Store Settings</span>
+        <span x-show="isSidebarCollapsed" class="absolute left-full ml-4 px-2 py-1 text-xs rounded-md bg-gray-900 text-white opacity-0 group-hover:opacity-100 whitespace-nowrap">Settings</span>
+    </a>
+</li>
                         <li>
                             <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg group"
                                :class="{'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300': isActive('staff'), 

@@ -8,7 +8,7 @@ class Settings {
 
     public function getAllSettings() {
         $stmt = $this->pdo->query("SELECT setting_key, setting_value FROM store_settings");
-        return $stmt->fetchAll(PDO::FETCH_KEY_PAIR); // Returns key => value pairs
+        return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
     }
 
     public function getSetting($key) {
