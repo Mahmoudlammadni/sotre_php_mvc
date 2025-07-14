@@ -99,18 +99,19 @@ $orderItems = $this->orderItem->getByOrder($order['id']);
                     <p class="text-sm text-gray-600 dark:text-gray-300"><?= htmlspecialchars($order['client_name']) ?></p>
                     <p class="text-sm text-gray-600 dark:text-gray-300">Order placed by User #<?= $order['user_id'] ?></p>
                 </div>
-                
                 <div class="mt-6 space-y-2">
-                    <form action="index.php?controller=order&action=markAsPaid" method="POST">
-                        <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
-                        <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-md transition duration-200">
-                            Mark as Paid
-                        </button>
-                    </form>
-
-                    <button class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-dark-500 dark:hover:bg-dark-400 dark:text-gray-200 py-2 px-4 rounded-md transition duration-200">
-                        Print Invoice
-                    </button>
+                 <?php if ($order['status'] === 'pending'): ?>
+                     <form action="index.php?controller=order&action=markAsPaid" method="POST">
+                         <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
+                         <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-md transition duration-200">
+                             Mark as Paid
+                         </button>
+                     </form>
+                 <?php endif; ?>
+                
+                 <button class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-dark-500 dark:hover:bg-dark-400 dark:text-gray-200 py-2 px-4 rounded-md transition duration-200">
+                     Print Invoice
+                 </button>
                 </div>
             </div>
         </div>
