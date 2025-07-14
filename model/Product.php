@@ -105,4 +105,14 @@ class Product {
         echo "Failed :".$e->getMessage();
         }
     }
+ public function searchProducts($searchTerm) {
+    $stmt = $this->pdo->prepare("SELECT p.*, c.name as category_name FROM products p
+        LEFT JOIN categories c ON p.category_id = c.id
+        WHERE p.name LIKE :search
+        OR p.description LIKE :search
+        OR c.name LIKE :search
+    ");
+    $stmt->execute(['search' => "%$searchTerm%"]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }
