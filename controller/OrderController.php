@@ -47,6 +47,33 @@ class OrderController {
         $view = __DIR__ . '/../view/admin/orders/index.php';
         include __DIR__ . '/../view/admin/layout.php';
     }
+
+public function markAsPaid() {
+    if ($_SESSION['user']['role_name'] !== 'admin' && $_SESSION['user']['role_name'] !== 'manager') {
+        $_SESSION['error'] = "You don't have permission to perform this action";
+        header("Location: index.php?controller=order&action=index");
+        exit();
+    }
+
+    $orderId = $_POST['order_id'] ?? null;
     
+    if (!$orderId || !is_numeric($orderId)) {
+        $_SESSION['error'] = "Invalid order ID";
+        header("Location: index.php?controller=order&action=index");
+        exit();
+    }
+    
+    $success = $this->order->updateStatus($orderId, 'paid');
+    
+    if ($success) {
+        $_SESSION['success'] = "Order #$orderId has been marked as paid";
+        $_SESSION['pending_order_count'] = $this->order->countPendingOrders();
+    } else {
+        $_SESSION['error'] = "Failed to update order status";
+    }
+    
+    header("Location: index.php?controller=order&action=show&id=$orderId");
+    exit();
+}
 
 }
