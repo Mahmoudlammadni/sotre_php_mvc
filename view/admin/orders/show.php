@@ -1,6 +1,20 @@
 <?php
 $orderItems = $this->orderItem->getByOrder($order['id']);
 ?>
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-md">
+        <?= $_SESSION['success'] ?>
+        <?php unset($_SESSION['success']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-md">
+        <?= $_SESSION['error'] ?>
+        <?php unset($_SESSION['error']); ?>
+    </div>
+<?php endif; ?>
+
 
 <div class="container mx-auto px-4 py-6">
     <div class="bg-white dark:bg-dark-700 rounded-lg shadow overflow-hidden">
@@ -87,9 +101,13 @@ $orderItems = $this->orderItem->getByOrder($order['id']);
                 </div>
                 
                 <div class="mt-6 space-y-2">
-                    <button class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-md transition duration-200">
-                        Mark as Paid
-                    </button>
+                    <form action="index.php?controller=order&action=markAsPaid" method="POST">
+                        <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
+                        <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-md transition duration-200">
+                            Mark as Paid
+                        </button>
+                    </form>
+
                     <button class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-dark-500 dark:hover:bg-dark-400 dark:text-gray-200 py-2 px-4 rounded-md transition duration-200">
                         Print Invoice
                     </button>
