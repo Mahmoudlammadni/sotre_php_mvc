@@ -57,4 +57,17 @@ public function getById($id) {
     $stmt->execute(['user_id' => $userId]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function updateStatus($orderId, $status) {
+    $validStatuses = ['pending', 'paid', 'cancelled'];
+    
+    if (!in_array($status, $validStatuses)) {
+        return false;
+    }
+    
+    $stmt = $this->pdo->prepare("UPDATE orders SET status = :status WHERE id = :id");
+    return $stmt->execute([
+        'id' => $orderId,
+        'status' => $status
+    ]);
+}
 }
