@@ -17,11 +17,48 @@ class ProductController{
     $this->cate=new Category($pdo);
     $this->supp=new Supplier($pdo);
  }
- public function index() {
-        $products = $this->model->getAll();
-        $view = __DIR__ . '/../view/admin/products/index.php';
-        include __DIR__ . "/../view/admin/layout.php";
+public function search() {
+    if (!$this->isAjaxRequest()) {
+        header("Location: index.php?controller=product&action=index");
+        exit;
     }
+
+    $searchTerm = $_GET['term'] ?? '';
+    $products = [];
+    
+    if (!empty($searchTerm)) {
+        $products = $this->model->searchProducts($searchTerm);
+    } else {
+        $products = $this->model->getAll();
+    }
+    
+    header('Content-Type: application/json');
+    echo json_encode($products);
+    exit;
+}
+
+
+public function index() {
+    $products = $this->model->getAll(); 
+    
+    
+    if ($this->isAjaxRequest()) {
+        $searchTerm = $_GET['search'] ?? '';
+        if (!empty($searchTerm)) {
+            $products = $this->model->searchProducts($searchTerm);
+        }
+        include __DIR__ . '/../view/admin/products/partials/products_table.php';
+        exit;
+    }
+    
+    $view = __DIR__ . '/../view/admin/products/index.php';
+    include __DIR__ . '/../view/admin/layout.php';
+}
+
+private function isAjaxRequest() {
+    return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+           strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+}
 
    public function destroy() {
     if (isset($_GET['id'])) {
