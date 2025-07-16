@@ -13,11 +13,27 @@ class UserController{
         $this->role= new Role($pdo);
     }
 
-    public function index(){
-        $users=$this->model->all_users();
-        $view = __DIR__ . '/../view/admin/users/index.php';
-        include __DIR__ . "/../view/admin/layout.php";
+public function index() {
+    $users = $this->model->all_users();
+    
+    if ($this->isAjaxRequest()) {
+        $searchTerm = $_GET['term'] ?? '';
+        if (!empty($searchTerm)) {
+            $users = $this->model->searchUsers($searchTerm);
+        }
+        header('Content-Type: application/json');
+        echo json_encode($users);
+        exit;
     }
+    
+    $view = __DIR__ . '/../view/admin/users/index.php';
+    include __DIR__ . "/../view/admin/layout.php";
+}
+
+private function isAjaxRequest() {
+    return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+           strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+}
 
 
  public function login() {
