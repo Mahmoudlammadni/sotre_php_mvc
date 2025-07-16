@@ -18,10 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    // Clear existing rows
                     productsTableBody.innerHTML = '';
                     
-                    // Add new rows
                     if (data.length > 0) {
                         data.forEach(product => {
                             productsTableBody.innerHTML += `
@@ -77,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         });
         
-        // Simple HTML escaping function
         function escapeHtml(unsafe) {
             if (!unsafe) return '';
             return unsafe.toString()
