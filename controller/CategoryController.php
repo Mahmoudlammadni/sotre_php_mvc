@@ -7,10 +7,26 @@ private $model ;
         global $pdo;
         $this->model= new Category($pdo);
     }
-    public function index (){
-        $category = $this->model->getAll();
-        $view= __DIR__ . "/../view/admin/category/index.php";
+  public function index() {
+        $categories = $this->model->getAll();
+        
+        if ($this->isAjaxRequest()) {
+            $searchTerm = $_GET['term'] ?? '';
+            if (!empty($searchTerm)) {
+                $categories = $this->model->searchCategories($searchTerm);
+            }
+            header('Content-Type: application/json');
+            echo json_encode($categories);
+            exit;
+        }
+        
+        $view = __DIR__ . '/../view/admin/category/index.php';
         include __DIR__ . "/../view/admin/layout.php";
+    }
+    
+    private function isAjaxRequest() {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+               strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
     }
     public function create(){
        $view= __DIR__ . "/../view/admin/category/store.php";

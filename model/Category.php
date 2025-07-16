@@ -8,6 +8,15 @@ class Category {
         $stmt = $this->pdo->query(" SELECT * from categories");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    public function searchCategories($searchTerm) {
+        $stmt = $this->pdo->prepare("SELECT * FROM categories 
+                                    WHERE name LIKE :search 
+                                    OR description LIKE :search");
+        $stmt->execute(['search' => "%$searchTerm%"]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
     public function findOneCategory($id){
         $req= $this->pdo->prepare("SELECT * FROM categories where id=:id");
         $req->execute([
