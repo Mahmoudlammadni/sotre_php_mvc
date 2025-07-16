@@ -23,7 +23,21 @@ class User{
         ]);
         return $req->fetch(PDO::FETCH_ASSOC);
     }
-
+public function searchUsers($searchTerm) {
+    $stmt = $this->pdo->prepare("SELECT users.*, roles.name as role_name 
+                                FROM users 
+                                INNER JOIN roles ON users.role_id = roles.id 
+                                WHERE (users.username LIKE :search 
+                                OR users.email LIKE :search
+                                OR roles.name LIKE :search)
+                                AND (roles.name = :role1 OR roles.name = :role2)");
+    $stmt->execute([
+        'search' => "%$searchTerm%",
+        'role1' => 'admin',
+        'role2' => 'manager'
+    ]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
     public function LogIn($email,$password){
         $req = $this->pdo->prepare("SELECT users.*, roles.name as role_name 
                             FROM users 

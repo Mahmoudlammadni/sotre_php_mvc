@@ -61,7 +61,13 @@ Example usage:
 bash
 Copier
 Modifier
-php mahmoud do:controller Product
-php mahmoud do:model Order
-php mahmoud do:view dashboard
+ ```bash
+   php mahmoud do:controller Product
+   ```
+```bash
+   php mahmoud do:model Order
+   ```
+```bash
+  php mahmoud do:view dashboard
+   ```
 This tool will create the corresponding files in the /controller, /model, or /view folders if they don't already exist.
