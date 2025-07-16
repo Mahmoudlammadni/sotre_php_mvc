@@ -11,11 +11,28 @@ class ClientController{
         $this->model= new Client($pdo);
         $this->productModel = new Product($pdo); 
     }
-    public function index(){
-        $clients=$this->model->all_clients();
-        $view = __DIR__ . "/../view/admin/clients/index.php";
-        include __DIR__ . "/../view/admin/layout.php";
+    // In ClientController.php
+public function index() {
+    $clients = $this->model->all_clients();
+    
+    if ($this->isAjaxRequest()) {
+        $searchTerm = $_GET['term'] ?? '';
+        if (!empty($searchTerm)) {
+            $clients = $this->model->searchClients($searchTerm);
+        }
+        header('Content-Type: application/json');
+        echo json_encode($clients);
+        exit;
     }
+    
+    $view = __DIR__ . '/../view/admin/clients/index.php';
+    include __DIR__ . "/../view/admin/layout.php";
+}
+
+private function isAjaxRequest() {
+    return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+           strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+}
     public function create(){
         $view= __DIR__ . "/../view/admin/clients/store.php";
         include __DIR__ . "/../view/admin/layout.php";

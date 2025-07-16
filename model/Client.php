@@ -109,6 +109,19 @@ class Client {
     }
 }
 
+public function searchClients($searchTerm) {
+    $stmt = $this->pdo->prepare("SELECT clients.id AS client_id, clients.phone, clients.address,
+               users.id AS user_id, users.username, users.email, users.password, users.created_at
+               FROM clients
+               INNER JOIN users ON clients.user_id = users.id
+               WHERE users.username LIKE :search 
+               OR users.email LIKE :search
+               OR clients.phone LIKE :search
+               OR clients.address LIKE :search
+    ");
+    $stmt->execute(['search' => "%$searchTerm%"]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
     public function destroy($id) {
         try {
             $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
