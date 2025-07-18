@@ -136,5 +136,38 @@ public function logout() {
     exit;
 }
 
+public function profile() {
+    if (!isset($_SESSION['user'])) {
+        header("Location: index.php?controller=user&action=showLogin");
+        exit;
+    }
+    
+    $userData = $this->model->getUserById($_SESSION['user']['id']);
+    
+    if ($_SESSION['user']['role_name'] === 'admin' || $_SESSION['user']['role_name'] === 'manager') {
+        include __DIR__ . '/../view/admin/users/profile.php';
+    } else {
+        header("Location: index.php?controller=client&action=profile");
+        exit;
+    }
+}
+
+public function editProfile() {
+    if (!isset($_GET['id'])) {
+        echo "User ID is missing.";
+        return;
+    }
+
+    $id = $_GET['id'];
+    $user = $this->model->getUserById($id);
+    if ($_SESSION['user']['id'] != $id && $_SESSION['user']['role_name'] !== 'admin') {
+        echo "You don't have permission to edit this profile.";
+        return;
+    }
+    
+    $roles = $this->role->getRoles();
+    include __DIR__ . '/../view/admin/users/edit_profile.php';
+}
+
 }
 
