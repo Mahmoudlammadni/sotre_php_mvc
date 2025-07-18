@@ -64,21 +64,30 @@ public function searchUsers($searchTerm) {
     }
     
 
-    public function UpdateUser($id,$name,$email,$password,$role_id){
-        try{
-            $req=$this->pdo->prepare("UPDATE `users` SET username =:name,email=:email,password=:password,role_id=:role_id where id =:id");
-            $req->execute([
-                "name"=>$name,
-                "email"=>$email,
-                "password"=>$password,
-                "role_id"=>$role_id,
-                "id"=>$id
-            ]);
-        }catch(PDOException $e){
-            echo "Failed".$e->getMessage();
+   public function UpdateUser($id, $name, $email, $password, $role_id) {
+    try {
+        $currentUser = $this->getUserById($id);
+        if (empty($password)) {
+            $password = $currentUser['password'];
+        } else {
+            $password = password_hash($password, PASSWORD_DEFAULT);
         }
-
+        
+        $req = $this->pdo->prepare("UPDATE `users` SET username =:name, email=:email, password=:password, role_id=:role_id WHERE id =:id");
+        $req->execute([
+            "name" => $name,
+            "email" => $email,
+            "password" => $password,
+            "role_id" => $role_id,
+            "id" => $id
+        ]);
+        
+        return true;
+    } catch(PDOException $e) {
+        error_log("UpdateUser error: " . $e->getMessage());
+        return false;
     }
+}
 
 
 public function destroy($id){
@@ -99,5 +108,6 @@ public function destroy($id){
             }
     }
 }
+
 
 }
