@@ -322,7 +322,7 @@
     </a>
 </li>
                         <li>
-                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg group"
+                            <a href="index.php?controller=user&action=profile" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg group"
                                :class="{'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300': isActive('staff'), 
                                        'hover:bg-gray-100 dark:hover:bg-gray-700': !isActive('staff')}">
                                 <i class='bx bx-user-circle text-xl mr-3'></i>
@@ -403,7 +403,7 @@
                              x-transition:leave="transition ease-in duration-75"
                              x-transition:leave-start="transform opacity-100 scale-100"
                              x-transition:leave-end="transform opacity-0 scale-95">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Your Profile</a>
+                            <a href="index.php?controller=user&action=profile" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Your Profile</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Settings</a>
                             <form action="index.php?controller=user&action=logout" method="post">
                                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Sign out</button>
