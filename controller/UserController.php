@@ -167,7 +167,6 @@ public function editProfile() {
     }
     
     $roles = $this->role->getRoles();
-    
     $view = __DIR__ . '/../view/admin/profile/edit_profile.php';
     include __DIR__ . "/../view/admin/layout.php";
 }
