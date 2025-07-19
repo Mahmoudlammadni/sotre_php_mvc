@@ -135,7 +135,6 @@ public function logout() {
     header("Location: index.php?controller=user&action=showLogin");
     exit;
 }
-
 public function profile() {
     if (!isset($_SESSION['user'])) {
         header("Location: index.php?controller=user&action=showLogin");
@@ -145,7 +144,8 @@ public function profile() {
     $userData = $this->model->getUserById($_SESSION['user']['id']);
     
     if ($_SESSION['user']['role_name'] === 'admin' || $_SESSION['user']['role_name'] === 'manager') {
-        include __DIR__ . '/../view/admin/users/profile.php';
+        $view = __DIR__ . '/../view/admin/profile/profile.php';
+        include __DIR__ . "/../view/admin/layout.php";
     } else {
         header("Location: index.php?controller=client&action=profile");
         exit;
@@ -159,14 +159,17 @@ public function editProfile() {
     }
 
     $id = $_GET['id'];
-    $user = $this->model->getUserById($id);
+    $userData = $this->model->getUserById($id);
+    
     if ($_SESSION['user']['id'] != $id && $_SESSION['user']['role_name'] !== 'admin') {
         echo "You don't have permission to edit this profile.";
         return;
     }
     
     $roles = $this->role->getRoles();
-    include __DIR__ . '/../view/admin/users/edit_profile.php';
+    
+    $view = __DIR__ . '/../view/admin/profile/edit_profile.php';
+    include __DIR__ . "/../view/admin/layout.php";
 }
 
 }
