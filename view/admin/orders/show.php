@@ -1,3 +1,239 @@
+
+<style>
+    body {
+        background-color: #ffffff;
+        color: #111827;
+    }
+    
+    .dark body {
+        background-color: #0f172a;
+        color: #f3f4f6;
+    }
+    
+    .container {
+        background-color: #ffffff;
+    }
+    
+    .dark .container {
+        background-color: #0f172a;
+    }
+    
+    /* Order container */
+    .bg-white {
+        background-color: #ffffff;
+    }
+    
+    .dark .bg-white {
+        background-color: #1e293b;
+    }
+    
+    /* Borders */
+    .border-gray-200 {
+        border-color: #e5e7eb;
+    }
+    
+    .dark .border-gray-200 {
+        border-color: #334155;
+    }
+    
+    /* Text colors */
+    .text-gray-800 {
+        color: #1f2937;
+    }
+    
+    .dark .text-gray-800 {
+        color: #f3f4f6;
+    }
+    
+    .text-gray-200 {
+        color: #e5e7eb;
+    }
+    
+    .dark .text-gray-200 {
+        color: #e5e7eb;
+    }
+    
+    .text-gray-400 {
+        color: #9ca3af;
+    }
+    
+    .dark .text-gray-400 {
+        color: #94a3b8;
+    }
+    
+    .text-gray-500 {
+        color: #6b7280;
+    }
+    
+    .dark .text-gray-500 {
+        color: #94a3b8;
+    }
+    
+    .text-gray-300 {
+        color: #d1d5db;
+    }
+    
+    .dark .text-gray-300 {
+        color: #cbd5e1;
+    }
+    
+    .text-gray-600 {
+        color: #4b5563;
+    }
+    
+    .dark .text-gray-600 {
+        color: #94a3b8;
+    }
+    
+    .text-gray-900 {
+        color: #111827;
+    }
+    
+    .dark .text-gray-900 {
+        color: #f8fafc;
+    }
+    
+    /* Background colors */
+    .bg-gray-50 {
+        background-color: #f9fafb;
+    }
+    
+    .dark .bg-gray-50 {
+        background-color: #1e293b;
+    }
+    
+    .bg-gray-100 {
+        background-color: #f3f4f6;
+    }
+    
+    .dark .bg-gray-100 {
+        background-color: #1f2937;
+    }
+    
+    /* Status badges */
+    .bg-yellow-100 {
+        background-color: #fef3c7;
+    }
+    
+    .dark .bg-yellow-100 {
+        background-color: #92400e;
+    }
+    
+    .text-yellow-800 {
+        color: #92400e;
+    }
+    
+    .dark .text-yellow-800 {
+        color: #fef3c7;
+    }
+    
+    .bg-green-100 {
+        background-color: #d1fae5;
+    }
+    
+    .dark .bg-green-100 {
+        background-color: #065f46;
+    }
+    
+    .text-green-800 {
+        color: #065f46;
+    }
+    
+    .dark .text-green-800 {
+        color: #d1fae5;
+    }
+    
+    .bg-red-100 {
+        background-color: #fee2e2;
+    }
+    
+    .dark .bg-red-100 {
+        background-color: #991b1b;
+    }
+    
+    .text-red-800 {
+        color: #991b1b;
+    }
+    
+    .dark .text-red-800 {
+        color: #fee2e2;
+    }
+    
+    /* Buttons */
+    .bg-primary-600 {
+        background-color: #2563eb;
+    }
+    
+    .dark .bg-primary-600 {
+        background-color: #1d4ed8;
+    }
+    
+    .hover\:bg-primary-700:hover {
+        background-color: #1d4ed8;
+    }
+    
+    .dark .hover\:bg-primary-700:hover {
+        background-color: #1e40af;
+    }
+    
+    .bg-gray-200 {
+        background-color: #e5e7eb;
+    }
+    
+    .dark .bg-gray-200 {
+        background-color: #334155;
+    }
+    
+    .hover\:bg-gray-300:hover {
+        background-color: #d1d5db;
+    }
+    
+    .dark .hover\:bg-gray-300:hover {
+        background-color: #475569;
+    }
+    
+    .text-gray-800 {
+        color: #1f2937;
+    }
+    
+    .dark .text-gray-800 {
+        color: #f1f5f9;
+    }
+    
+    /* Success/error messages */
+    .bg-green-100 {
+        background-color: #d1fae5;
+    }
+    
+    .dark .bg-green-100 {
+        background-color: #064e3b;
+    }
+    
+    .text-green-700 {
+        color: #065f46;
+    }
+    
+    .dark .text-green-700 {
+        color: #a7f3d0;
+    }
+    
+    .bg-red-100 {
+        background-color: #fee2e2;
+    }
+    
+    .dark .bg-red-100 {
+        background-color: #7f1d1d;
+    }
+    
+    .text-red-700 {
+        color: #b91c1c;
+    }
+    
+    .dark .text-red-700 {
+        color: #fecaca;
+    }
+</style>
+
 <?php
 $orderItems = $this->orderItem->getByOrder($order['id']);
 ?>
@@ -116,4 +352,4 @@ $orderItems = $this->orderItem->getByOrder($order['id']);
             </div>
         </div>
     </div>
-</div>
+</div>  
