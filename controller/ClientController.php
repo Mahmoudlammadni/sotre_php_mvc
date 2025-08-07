@@ -39,6 +39,19 @@ private function isAjaxRequest() {
 
     }
 
+ public function StoreClient() {
+     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         $name=$_POST["name"];
+         $email=$_POST['email'];
+         $password=$_POST["password"];
+         $phone=$_POST["phone"];
+         $address=$_POST["address"];
+         $this->model->StoreClient($name,$email,$password,$phone,$address);
+        
+        include __DIR__ . "/../view/auth/login.php";
+         exit;
+     }
+ }
  public function store() {
      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          $name=$_POST["name"];
