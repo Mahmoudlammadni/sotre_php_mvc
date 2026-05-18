@@ -66,6 +66,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            height: 100%;
             padding-top: 8px !important;
             padding-bottom: 8px !important;
         }
