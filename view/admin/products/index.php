@@ -65,9 +65,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100%;
-            padding: 0 !important;
             gap: 8px;
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
         }
 
         .user-action-btn {

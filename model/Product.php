@@ -106,8 +106,9 @@ class Product {
         }
     }
  public function searchProducts($searchTerm) {
-    $stmt = $this->pdo->prepare("SELECT p.*, c.name as category_name FROM products p
+    $stmt = $this->pdo->prepare("SELECT p.*, c.name as category_name, pi.image_path FROM products p
         LEFT JOIN categories c ON p.category_id = c.id
+        LEFT JOIN products_images pi ON p.id = pi.product_id
         WHERE p.name LIKE :search
         OR p.description LIKE :search
         OR c.name LIKE :search
