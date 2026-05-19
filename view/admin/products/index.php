@@ -62,13 +62,16 @@
         }
         
         .user-actions-cell {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            height: 100%;
+            display: table-cell;
+            vertical-align: middle !important;
+            text-align: center;
+            white-space: nowrap;
             padding-top: 8px !important;
             padding-bottom: 8px !important;
+        }
+
+        .user-actions-cell a + a {
+            margin-left: 8px;
         }
 
         .user-action-btn {
