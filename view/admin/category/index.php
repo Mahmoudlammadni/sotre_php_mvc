@@ -46,7 +46,6 @@
             border-color: #334155;
         }
         
-        /* Alignment Fixes */
         .user-data-table {
             table-layout: fixed;
             width: 100%;
@@ -81,7 +80,6 @@
             transform: none !important;
         }
 
-        /* Search loading indicator */
         #searchLoading {
             display: none;
         }
@@ -90,7 +88,6 @@
             display: flex;
         }
 
-        /* No results row */
         .no-results {
             text-align: center;
             padding: 20px !important;

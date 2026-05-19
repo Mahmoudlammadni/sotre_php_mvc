@@ -10,6 +10,7 @@
 <body>
      <h2 style="text-align: center;"> add Category</h2>
     <form class="form-container"  action="/sotre_php_mvc/index.php?controller=category&action=store" method="post">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <input class="input-field"  type="text" placeholder="name" name="name" required><br>
         <input class="input-field"  type="text" placeholder="description" name="description" required><br>
         <button class="action-button" type="submit">add Category</button>

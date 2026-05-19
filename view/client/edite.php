@@ -95,6 +95,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6 profile-card">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Update</h2>
             <form action="/sotre_php_mvc/index.php?controller=client&action=update&id=<?= $client['user_id'] ?>" method="post">
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 <div class="mb-4">
                     <input class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" 
                            type="text" placeholder="Name" name="username" value="<?= htmlspecialchars($client['username']) ?>" required>

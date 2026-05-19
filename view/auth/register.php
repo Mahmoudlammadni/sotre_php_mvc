@@ -10,6 +10,7 @@
 <body>
         <h2 style="text-align: center;"> Register Form</h2>
         <form class="form-container" action="index.php?controller=client&action=StoreClient" method="post">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <input class="input-field" type="text" placeholder="name" name="name" required> <br>
         <input class="input-field" type="text" placeholder="email" name="email" required> <br>
         <input class="input-field" type="password" placeholder="password" name="password" required> <br>

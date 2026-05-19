@@ -66,7 +66,6 @@
             border-color: #334155;
         }
         
-        /* Alignment Fixes */
         .user-data-table {
             table-layout: fixed;
             width: 100%;
@@ -80,7 +79,6 @@
             padding: 12px 8px;
         }
         
-        /* Search loading indicator */
         #searchLoading {
             display: none;
         }
@@ -89,7 +87,6 @@
             display: flex;
         }
 
-        /* No results row */
         .no-results {
             text-align: center;
             padding: 20px !important;
@@ -112,7 +109,6 @@
             border-color: #334155;
         }
         
-        /* Button styling - removed space below */
         .user-actions-cell {
             display: flex;
             align-items: center;

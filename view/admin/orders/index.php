@@ -54,7 +54,6 @@
             border-color: #334155;
         }
         
-        /* Table header dark mode */
         .order-table thead {
             background-color: #f9fafb;
         }
@@ -71,7 +70,6 @@
             color: #e5e7eb;
         }
         
-        /* Status badges */
         .status-pending {
             background-color: #fef3c7;
             color: #92400e;
@@ -102,7 +100,6 @@
             color: #fee2e2;
         }
         
-        /* Action links */
         .action-link {
             color: #2563eb;
         }
@@ -119,7 +116,6 @@
             color: #93c5fd;
         }
         
-        /* Header styles */
         .order-header {
             border-color: #e5e7eb;
             color: #111827;

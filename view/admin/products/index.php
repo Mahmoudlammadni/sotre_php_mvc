@@ -47,7 +47,6 @@
             border-color: #334155;
         }
         
-        /* Alignment Fixes */
         .user-data-table {
             table-layout: fixed;
             width: 100%;

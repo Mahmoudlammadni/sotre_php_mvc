@@ -17,6 +17,7 @@
     </div>
 
     <form action="index.php?controller=settings&action=update" method="POST" class="space-y-8">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700">
             <div class="p-6 sm:p-8 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex items-center mb-6">

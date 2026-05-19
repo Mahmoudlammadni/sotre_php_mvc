@@ -14,6 +14,7 @@
 <h2 style="text-align: center;">Edit Client</h2>
 
 <form  class="form-container" action="index.php?controller=client&action=update&id=<?= $client['user_id'] ?>" method="post" >
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <input type="text" name="username" class="input-field" value="<?= htmlspecialchars($client['username']) ?>" required>
 
     <textarea name="email" class="input-field" rows="4" required><?= htmlspecialchars($client['email']) ?></textarea>

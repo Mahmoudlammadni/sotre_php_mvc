@@ -9,6 +9,7 @@
 <body>
     <h2 style="text-align: center;"> Login Form</h2>
     <form  class="form-container" action="index.php?controller=user&action=login" method="POST">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <input class="input-field"  type="email" name="email" required placeholder="Email">
     <input class="input-field" type="password" name="password" required placeholder="Password">
     <button class="action-button"  type="submit">Login</button>

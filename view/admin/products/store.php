@@ -10,7 +10,7 @@
   <h2 style="text-align: center;">Store Product</h2>
 
   <form class="form-container" method="POST" action="/sotre_php_mvc/index.php?controller=product&action=store" enctype="multipart/form-data">
-    
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <input class="input-field" type="text" name="name" placeholder="Product Name" required />
 
     <textarea class="input-field" name="description" placeholder="Description" required></textarea>

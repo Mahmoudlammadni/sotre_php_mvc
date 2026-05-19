@@ -8,6 +8,7 @@
 <body>
     client
     <form action="index.php?controller=user&action=logout" method="post">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <button type="submit">log out</button>
     </form>
 </body>

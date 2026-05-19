@@ -46,7 +46,6 @@
             border-color: #334155;
         }
         
-        /* Table header dark mode */
         .user-data-table th {
             color: #374151;
             background-color: #f9fafb;
@@ -57,7 +56,6 @@
             background-color: #1f2937;
         }
         
-        /* Keep original button positioning */
         .user-data-table td {
             vertical-align: middle !important;
             padding-top: 12px !important;
@@ -81,7 +79,6 @@
             display: block;
         }
 
-        /* Dark mode specific styles */
         #userSearch {
             background-color: #ffffff;
             color: #111827;

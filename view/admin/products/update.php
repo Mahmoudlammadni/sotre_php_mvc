@@ -11,6 +11,7 @@
 <h2 style="text-align: center;">Edit Product</h2>
 
 <form class="form-container" action="index.php?controller=product&action=update&id=<?= $product['id'] ?>" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <input   class="input-field"  type="text" name="name" value="<?= htmlspecialchars($product['name']) ?>" required>
 
     <textarea  class="input-field"  name="description" rows="4" required><?= htmlspecialchars($product['description']) ?></textarea>

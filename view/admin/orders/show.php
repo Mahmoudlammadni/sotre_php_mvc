@@ -18,7 +18,6 @@
         background-color: #0f172a;
     }
     
-    /* Order container */
     .bg-white {
         background-color: #ffffff;
     }
@@ -27,7 +26,6 @@
         background-color: #1e293b;
     }
     
-    /* Borders */
     .border-gray-200 {
         border-color: #e5e7eb;
     }
@@ -36,7 +34,6 @@
         border-color: #334155;
     }
     
-    /* Text colors */
     .text-gray-800 {
         color: #1f2937;
     }
@@ -93,7 +90,6 @@
         color: #f8fafc;
     }
     
-    /* Background colors */
     .bg-gray-50 {
         background-color: #f9fafb;
     }
@@ -110,7 +106,6 @@
         background-color: #1f2937;
     }
     
-    /* Status badges */
     .bg-yellow-100 {
         background-color: #fef3c7;
     }
@@ -159,7 +154,6 @@
         color: #fee2e2;
     }
     
-    /* Buttons */
     .bg-primary-600 {
         background-color: #2563eb;
     }
@@ -200,7 +194,6 @@
         color: #f1f5f9;
     }
     
-    /* Success/error messages */
     .bg-green-100 {
         background-color: #d1fae5;
     }
@@ -338,6 +331,7 @@ $orderItems = $this->orderItem->getByOrder($order['id']);
                 <div class="mt-6 space-y-2">
                  <?php if ($order['status'] === 'pending'): ?>
                      <form action="index.php?controller=order&action=markAsPaid" method="POST">
+                         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                          <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
                          <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-md transition duration-200">
                              Mark as Paid

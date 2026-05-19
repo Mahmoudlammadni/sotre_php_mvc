@@ -12,6 +12,7 @@
 <h2 style="text-align: center;">Edit User</h2>
 
 <form   class="form-container" action="index.php?controller=user&action=update&id=<?= $user['id'] ?>" method="post" >
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <input type="text" class="input-field" name="username" value="<?= htmlspecialchars($user['username']) ?>" required>
 
     <textarea name="email"  class="input-field" rows="4" required><?= htmlspecialchars($user['email']) ?></textarea>

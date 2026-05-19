@@ -93,35 +93,37 @@ class CartController {
     }
         $clientId = $client['id'];
 
-        $total = 0;
-        $validItems = [];
-        
-        foreach ($_SESSION['cart'] as $productId => $quantity) {
-            $product = $this->productModel->getById($productId);
-            
-            if (!$product) {
-                $_SESSION['error'] = "Product no longer available";
-                header("Location: index.php?controller=cart&action=view");
-                exit();
-            }
-            
-            if ($product['quantity'] < $quantity) {
-                $_SESSION['error'] = "Not enough stock for {$product['name']}";
-                header("Location: index.php?controller=cart&action=view");
-                exit();
-            }
-            
-            $subtotal = $product['price'] * $quantity;
-            $total += $subtotal;
-            $validItems[] = [
-                'product_id' => $productId,
-                'quantity' => $quantity,
-                'price' => $product['price'],
-                'subtotal' => $subtotal
-            ];
-        }
+        global $pdo;
 
         try {
+            $pdo->beginTransaction();
+
+            $total = 0;
+            $validItems = [];
+            
+            foreach ($_SESSION['cart'] as $productId => $quantity) {
+                $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ? FOR UPDATE");
+                $stmt->execute([$productId]);
+                $product = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+                if (!$product) {
+                    throw new Exception("Product no longer available");
+                }
+                
+                if ($product['quantity'] < $quantity) {
+                    throw new Exception("Not enough stock for {$product['name']}");
+                }
+                
+                $subtotal = $product['price'] * $quantity;
+                $total += $subtotal;
+                $validItems[] = [
+                    'product_id' => $productId,
+                    'quantity' => $quantity,
+                    'price' => $product['price'],
+                    'subtotal' => $subtotal
+                ];
+            }
+
             $orderId = $this->orderModel->create($clientId, $userId, $total);
 
             foreach ($validItems as $item) {
@@ -135,12 +137,14 @@ class CartController {
             }
 
             unset($_SESSION['cart']);
+            $pdo->commit();
             header("Location: index.php?controller=client&action=profile&id=$orderId");
             exit();
 
         } catch (Exception $e) {
+            $pdo->rollBack();
             error_log("Checkout error: " . $e->getMessage());
-            $_SESSION['error'] = "Checkout failed. Please try again.";
+            $_SESSION['error'] = $e->getMessage() ?: "Checkout failed. Please try again.";
             header("Location: index.php?controller=cart&action=view");
             exit();
         }

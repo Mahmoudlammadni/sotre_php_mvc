@@ -11,8 +11,7 @@ class ClientController{
         $this->model= new Client($pdo);
         $this->productModel = new Product($pdo); 
     }
-    // In ClientController.php
-public function index() {
+    public function index() {
     $clients = $this->model->all_clients();
     
     if ($this->isAjaxRequest()) {

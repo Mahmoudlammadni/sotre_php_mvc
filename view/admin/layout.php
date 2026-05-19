@@ -348,6 +348,7 @@
                 <form action="index.php?controller=user&action=logout" method="post" 
                       class="transition-all duration-300"
                       :class="{'opacity-0 w-0': isSidebarCollapsed, 'opacity-100': !isSidebarCollapsed}">
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                     <button type="submit" class="p-1 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
                         <i class='bx bx-log-out text-xl'></i>
                     </button>
@@ -355,6 +356,7 @@
                 
                 <form x-show="isSidebarCollapsed" action="index.php?controller=user&action=logout" method="post" 
                       class="absolute left-full ml-4 px-2 py-1 rounded-md bg-gray-900 text-white opacity-0 group-hover:opacity-100 whitespace-nowrap">
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                     <button type="submit" class="text-xs">Log Out</button>
                 </form>
             </div>
@@ -373,9 +375,9 @@
                 <div class="flex-1 max-w-md mx-4">
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <!-- <i class='bx bx-search text-gray-400'></i> -->
+        
                         </div>
-                        <!-- <input type="text" class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-dark-700 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Search..."> -->
+
                     </div>
                 </div>
                 
@@ -406,6 +408,7 @@
                             <a href="index.php?controller=user&action=profile" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Your Profile</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Settings</a>
                             <form action="index.php?controller=user&action=logout" method="post">
+                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                                 <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Sign out</button>
                             </form>
                         </div>

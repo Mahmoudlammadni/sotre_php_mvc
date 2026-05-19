@@ -10,6 +10,7 @@
 <body>
     <h2 style="text-align: center;">hello from add user</h2>
     <form class="form-container"  action="/sotre_php_mvc/index.php?controller=client&action=store" method="post">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <input class="input-field"  type="text" placeholder="username" name="username" required><br>
         <input class="input-field"  type="text" placeholder="email" name="email" required><br>
         <input class="input-field"  type="text" placeholder="password" name="password" required><br>
