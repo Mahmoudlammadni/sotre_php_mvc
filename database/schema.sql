@@ -11,12 +11,13 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL, 
   role_id INT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (role_id) REFERENCES roles(id)
+  FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
 );
 CREATE TABLE categories (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
-  description TEXT
+  description TEXT,
+  INDEX idx_categories_name (name)
 );
 CREATE TABLE suppliers (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,8 +36,9 @@ CREATE TABLE products (
   category_id INT,
   supplier_id INT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (category_id) REFERENCES categories(id),
-  FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
+  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
+  FOREIGN KEY (supplier_id) REFERENCES suppliers(id) ON DELETE SET NULL,
+  INDEX idx_products_name (name)
 );
 CREATE TABLE products_images (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -63,7 +65,8 @@ CREATE TABLE orders (
   total_amount DECIMAL(10,2),
   status ENUM('pending', 'paid', 'cancelled') DEFAULT 'pending',
   FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  INDEX idx_orders_status (status)
 );
 CREATE TABLE order_items (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -81,5 +84,6 @@ CREATE TABLE store_settings (
   setting_value TEXT,
   is_encrypted BOOLEAN DEFAULT FALSE,
   updated_at TIMESTAMP,
-  updated_by INT REFERENCES users(id)
+  updated_by INT,
+  FOREIGN KEY (updated_by) REFERENCES users(id) ON DELETE SET NULL
 );
