@@ -81,6 +81,10 @@ public function create(){
 
 
 public function store(){
+    if (!isset($_SESSION['user']) || $_SESSION['user']['role_name'] !== 'admin') {
+        header("Location: index.php?controller=product&action=index");
+        exit;
+    }
     if($_SERVER["REQUEST_METHOD"]==='POST'){
         $username=$_POST["username"];
         $email=$_POST["email"];
@@ -103,6 +107,10 @@ public function edite(){
 
 }
 public function update(){
+    if (!isset($_SESSION['user']) || $_SESSION['user']['role_name'] !== 'admin') {
+        header("Location: index.php?controller=product&action=index");
+        exit;
+    }
   $id = $_GET['id'] ;
     if (!$id) {
         echo "No user ID provided.";
@@ -117,6 +125,10 @@ public function update(){
 
 }
 public function destroy(){
+    if (!isset($_SESSION['user']) || $_SESSION['user']['role_name'] !== 'admin') {
+        header("Location: index.php?controller=product&action=index");
+        exit;
+    }
   if(isset($_GET["id"])){
     $id=$_GET["id"];
     $this->model->destroy($id);

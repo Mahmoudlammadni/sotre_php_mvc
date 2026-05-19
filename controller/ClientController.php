@@ -140,6 +140,10 @@ private function isAjaxRequest() {
 
     
     public function destroy(){
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role_name'] !== 'admin') {
+            header("Location: index.php?controller=product&action=index");
+            exit;
+        }
         if(isset($_GET["id"])){
             $id=$_GET["id"];
             $this->model->destroy($id);

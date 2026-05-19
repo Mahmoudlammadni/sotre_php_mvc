@@ -131,7 +131,7 @@ class CartController {
                     $item['quantity'],
                     $item['price']
                 );
-               
+                $this->productModel->decrementStock($item['product_id'], $item['quantity']);
             }
 
             unset($_SESSION['cart']);

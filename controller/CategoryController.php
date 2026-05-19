@@ -34,6 +34,10 @@ private $model ;
 
     }
     public function store(){
+        if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role_name'], ['admin', 'manager'])) {
+            header("Location: index.php?controller=product&action=index");
+            exit;
+        }
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             $name=$_POST["name"];
             $description=$_POST["description"];
@@ -54,6 +58,10 @@ private $model ;
         include __DIR__ . "/../view/admin/layout.php";
     }
     public function update(){
+        if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role_name'], ['admin', 'manager'])) {
+            header("Location: index.php?controller=product&action=index");
+            exit;
+        }
         $id=$_GET["id"];
        if (!$id) {
               echo "No category ID provided.";
@@ -65,6 +73,10 @@ private $model ;
 
     }
     public function destroy(){
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role_name'] !== 'admin') {
+            header("Location: index.php?controller=product&action=index");
+            exit;
+        }
         if(isset($_GET["id"])){
             $id=$_GET["id"];
             $this->model->destroy($id);

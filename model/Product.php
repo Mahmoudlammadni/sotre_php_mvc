@@ -116,4 +116,10 @@ class Product {
     $stmt->execute(['search' => "%$searchTerm%"]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+    public function decrementStock($productId, $quantity) {
+        $stmt = $this->pdo->prepare("UPDATE products SET quantity = quantity - :quantity WHERE id = :id AND quantity >= :quantity2");
+        $stmt->execute([':quantity' => $quantity, ':id' => $productId, ':quantity2' => $quantity]);
+        return $stmt->rowCount() > 0;
+    }
 }

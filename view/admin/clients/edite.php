@@ -18,7 +18,7 @@
 
     <textarea name="email" class="input-field" rows="4" required><?= htmlspecialchars($client['email']) ?></textarea>
 
-    <input type="text" name="password" class="input-field" value="<?= htmlspecialchars($client['password']) ?>" required>
+    <input type="password" name="password" class="input-field" placeholder="Leave blank to keep current password">
     
     <input type="text" name="phone" class="input-field" value="<?= htmlspecialchars($client['phone']) ?>" required>
     

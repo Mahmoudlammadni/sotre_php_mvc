@@ -16,7 +16,7 @@
 
     <textarea name="email"  class="input-field" rows="4" required><?= htmlspecialchars($user['email']) ?></textarea>
 
-    <input type="text" class="input-field" name="password" value="<?= htmlspecialchars($user['password']) ?>" required>
+    <input type="password" class="input-field" name="password" placeholder="Leave blank to keep current password">
 
    <select class="input-field" name="role_id" required>
     <option value="" disabled>-- Select role --</option>
