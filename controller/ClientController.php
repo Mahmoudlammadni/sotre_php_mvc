@@ -45,9 +45,15 @@ private function isAjaxRequest() {
          $password=$_POST["password"];
          $phone=$_POST["phone"];
          $address=$_POST["address"];
-         $this->model->StoreClient($name,$email,$password,$phone,$address);
+         $result = $this->model->StoreClient($name,$email,$password,$phone,$address);
         
-        include __DIR__ . "/../view/auth/login.php";
+         if ($result) {
+             $_SESSION['success'] = "Account created! Please sign in.";
+             header("Location: index.php?controller=user&action=showLogin");
+         } else {
+             $_SESSION['error'] = "Registration failed. Email may already exist.";
+             header("Location: index.php?controller=user&action=register");
+         }
          exit;
      }
  }

@@ -59,7 +59,9 @@ private function isAjaxRequest() {
             }
             exit;
         } else {
-            echo "Invalid credentials.";
+            $_SESSION['error'] = "Invalid email or password.";
+            header("Location: index.php?controller=user&action=showLogin");
+            exit;
         }
     }
 }
