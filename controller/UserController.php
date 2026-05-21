@@ -67,11 +67,13 @@ private function isAjaxRequest() {
 }
 
     public function showLogin() {
-    include __DIR__ . '/../view/auth/login.php';
+    $mode = 'login';
+    include __DIR__ . '/../view/auth/auth.php';
 }
 
 public function register() {
-    include __DIR__ . '/../view/auth/register.php';
+    $mode = 'register';
+    include __DIR__ . '/../view/auth/auth.php';
 }
 public function create(){
     $roles =$this->role->getRoles();
