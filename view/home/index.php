@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LuxeCart | Premium Online Store</title>
   <link rel="stylesheet" href="/sotre_php_mvc/public/css/main.css">
+  <?php
+  $seen = [];
+  $unique = [];
+  foreach ($products as $p) {
+      if (!isset($seen[$p['id']])) { $seen[$p['id']] = true; $unique[] = $p; }
+  }
+  $products = $unique;
+  function imgUrl($p) { return !empty($p['image_path']) ? '/sotre_php_mvc/' . htmlspecialchars($p['image_path']) : ''; }
+  ?>
   <style>
     .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #1e293b; color: #fff; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.2); z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
     @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
@@ -120,22 +129,29 @@
     <h2 class="section-title fade-in-up" style="font-size:22px;margin-bottom:4px">🔥 Trending Now</h2>
     <p class="section-subtitle fade-in-up" style="margin-bottom:20px">Most wanted items this week</p>
   </div>
-  <?php
-  $trendSeeds = ['wireless-earbuds','smart-ring','leather-wallet','yoga-mat','protein-shaker','desk-lamp','plant-pot','coffee-mug'];
-  $trendNames = ['Wireless Earbuds','Smart Ring','Leather Wallet','Yoga Mat','Protein Shaker','Desk Lamp','Plant Pot','Coffee Mug'];
-  $trendPrices = [79.99, 149.99, 49.99, 29.99, 24.99, 39.99, 19.99, 14.99];
-  ?>
-  <div class="container">
-    <div class="trending-scroll">
-      <?php for ($t = 0; $t < 8; $t++): ?>
-      <div class="trending-item">
-        <div class="thumb"><img src="https://picsum.photos/seed/<?= $trendSeeds[$t] ?>/200/200" alt="<?= $trendNames[$t] ?>" loading="lazy"></div>
-        <h4><?= $trendNames[$t] ?></h4>
-        <span class="price">$<?= number_format($trendPrices[$t], 2) ?></span>
+      <?php
+      $trendItems = [
+        ['name'=>'Phone Holder Stand','price'=>14.99,'img'=>'phone-holder'],
+        ['name'=>'Wireless Charger Pad','price'=>24.99,'img'=>'wireless-charger'],
+        ['name'=>'Magnetic USB Cable','price'=>12.99,'img'=>'magnetic-cable'],
+        ['name'=>'Bluetooth Earbuds','price'=>39.99,'img'=>'bluetooth-earphones'],
+        ['name'=>'Car Phone Mount','price'=>18.99,'img'=>'car-phone-mount'],
+        ['name'=>'Phone Grip Strap','price'=>8.99,'img'=>'phone-grip'],
+        ['name'=>'Fast Charger Block','price'=>19.99,'img'=>'fast-charger'],
+        ['name'=>'Phone Ring Holder','price'=>6.99,'img'=>'ring-holder'],
+      ];
+      ?>
+      <div class="container">
+        <div class="trending-scroll">
+          <?php foreach ($trendItems as $t): ?>
+          <div class="trending-item">
+            <div class="thumb"><img src="https://picsum.photos/seed/<?= $t['img'] ?>/200/200" alt="<?= $t['name'] ?>" loading="lazy"></div>
+            <h4><?= $t['name'] ?></h4>
+            <span class="price">$<?= number_format($t['price'], 2) ?></span>
+          </div>
+          <?php endforeach; ?>
+        </div>
       </div>
-      <?php endfor; ?>
-    </div>
-  </div>
 </section>
 
 <section id="products" class="section products-carousel">
@@ -148,7 +164,7 @@
   <div class="carousel-wrapper fade-in">
     <div class="carousel-track">
       <?php
-      $prodImgs = ['headphones','watch','bag','shoes','camera','perfume','sunglasses','backpack'];
+      $prodImgs = ['phone-holder','wireless-charger','magnetic-cable','bluetooth-earphones','car-mount','phone-grip','fast-charger','ring-holder'];
       $i = 0;
       ?>
       <?php for ($rep = 0; $rep < 3; $rep++): ?>
@@ -184,32 +200,32 @@
     <p class="section-subtitle fade-in-up">Grab these deals before they're gone</p>
     <div class="limited-grid stagger">
       <?php
-      $offerNames = ['Premium Headphones Bundle', 'Smartwatch Pro', 'Designer Backpack'];
-      $offerImgs = ['headphones-bundle', 'smartwatch-pro', 'backpack-design'];
-      $offerPrices = [199.99, 299.99, 89.99];
-      $offerOld = [349.99, 499.99, 149.99];
-      $offerHours = [8, 14, 6];
+      $offerItems = [
+        ['name'=>'Wireless Charger Station','price'=>29.99,'old'=>49.99,'img'=>'wireless-charger-station','hours'=>8],
+        ['name'=>'Premium Bluetooth Earbuds','price'=>49.99,'old'=>89.99,'img'=>'premium-earbuds','hours'=>14],
+        ['name'=>'Phone Holder + Cable Kit','price'=>19.99,'old'=>39.99,'img'=>'holder-cable-kit','hours'=>6],
+      ];
       ?>
-      <?php for ($o = 0; $o < 3; $o++): ?>
+      <?php foreach ($offerItems as $o): ?>
       <div class="card fade-in-up">
         <div style="aspect-ratio:4/3;overflow:hidden;background:#f1f5f9;">
-          <img src="https://picsum.photos/seed/<?= $offerImgs[$o] ?>/400/300" alt="<?= $offerNames[$o] ?>" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+          <img src="https://picsum.photos/seed/<?= $o['img'] ?>/400/300" alt="<?= $o['name'] ?>" style="width:100%;height:100%;object-fit:cover" loading="lazy">
         </div>
         <div style="padding:20px">
-          <h3 style="font-size:17px;font-weight:600;color:var(--dark);margin-bottom:4px"><?= $offerNames[$o] ?></h3>
+          <h3 style="font-size:17px;font-weight:600;color:var(--dark);margin-bottom:4px"><?= $o['name'] ?></h3>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <span style="font-size:22px;font-weight:800;color:var(--danger)">$<?= number_format($offerPrices[$o], 2) ?></span>
-            <span style="font-size:14px;color:var(--text-muted);text-decoration:line-through">$<?= number_format($offerOld[$o], 2) ?></span>
-            <span class="badge badge-danger">-<?= round((1 - $offerPrices[$o]/$offerOld[$o])*100) ?>%</span>
+            <span style="font-size:22px;font-weight:800;color:var(--danger)">$<?= number_format($o['price'], 2) ?></span>
+            <span style="font-size:14px;color:var(--text-muted);text-decoration:line-through">$<?= number_format($o['old'], 2) ?></span>
+            <span class="badge badge-danger">-<?= round((1 - $o['price']/$o['old'])*100) ?>%</span>
           </div>
-          <div class="offer-countdown" data-hours="<?= $offerHours[$o] ?>"></div>
-          <button class="btn btn-primary btn-sm btn-block mt-8" data-add-to-cart="<?= $o + 100 ?>">
+          <div class="offer-countdown" data-hours="<?= $o['hours'] ?>"></div>
+          <button class="btn btn-primary btn-sm btn-block mt-8" data-add-to-cart="<?= $o['hours'] + 100 ?>">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
             Grab Deal
           </button>
         </div>
       </div>
-      <?php endfor; ?>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -264,8 +280,8 @@
     <div class="brand-item">
       <svg viewBox="0 0 100 40"><rect x="5" y="5" width="90" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="50" y="27" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">BRAND <?= $b ?></text></svg>
     </div>
-    <?php endfor; ?>
-  </div>
+      <?php endfor; ?>
+    </div>
 </section>
 
 <section class="section customer-favorites">
@@ -273,15 +289,15 @@
     <h2 class="section-title fade-in-up">⭐ Customer Favorites</h2>
     <p class="section-subtitle fade-in-up">Top-rated products our customers love</p>
     <div class="fav-grid stagger">
-      <?php
-      $favImgs = ['laptop','tablet','speaker','mouse','keyboard','monitor','chair','desk'];
-      $i2 = 0;
-      ?>
       <?php for ($f = 0; $f < 2; $f++): ?>
       <?php foreach ($products as $product): ?>
       <div class="product-card fade-in-up" style="min-width:0">
         <div class="product-card-image">
-          <img src="https://picsum.photos/seed/<?= $favImgs[$i2 % count($favImgs)] ?>/400/400" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
+          <?php if ($src = imgUrl($product)): ?>
+          <img src="<?= $src ?>" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
+          <?php else: ?>
+          <img src="https://picsum.photos/seed/phone-accessory/400/400" alt="<?= htmlspecialchars($product['name']) ?>" loading="lazy">
+          <?php endif; ?>
           <span class="badge badge-success product-badge" style="background:var(--success-bg);color:var(--success);left:auto;right:12px">4.8 ★</span>
         </div>
         <div class="product-card-body">
@@ -293,7 +309,7 @@
           <button class="btn btn-outline btn-sm btn-block mt-8" data-add-to-cart="<?= $product['id'] ?>">Add to Cart</button>
         </div>
       </div>
-      <?php $i2++; endforeach; ?>
+      <?php endforeach; ?>
       <?php endfor; ?>
     </div>
   </div>
